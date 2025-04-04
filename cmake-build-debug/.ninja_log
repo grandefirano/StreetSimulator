@@ -7,11 +7,11 @@
 151	1681	7655015664968416	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Vector2.cpp.obj	636c46581b9916ff
 14023	19542	7655015803676001	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Win32/CursorImpl.cpp.obj	e9ad8e826683ede3
 1686	3015	7655015680314424	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Vector3.cpp.obj	40ca971dbecafbc9
-18	7238	7655032672138540	build.ninja	4d6ecc263761563d
+21	7149	7655048266937916	build.ninja	4d6ecc263761563d
 72	562	7655024992601866	CMakeFiles/StreetSimulator.dir/main.cpp.obj	c8bfd6293c249f34
 52	4840	7655015663978828	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Clock.cpp.obj	c320afa9da498386
 29080	30046	7655015954254464	_deps/freetype-build/CMakeFiles/freetype.dir/src/base/ftstroke.c.obj	4e64d04d2c095364
-3159	7226	7655027188210513	StreetSimulator.exe	4be1ea93bf40e1c6
+4282	8013	7655034827341622	StreetSimulator.exe	8e816591fc889c7b
 9959	10942	7655015763057247	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Sensor.cpp.obj	cd132f3c1095d96e
 68	2240	7655015664138398	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Err.cpp.obj	d2d7e326f7b73eea
 108	3678	7655015664538422	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/String.cpp.obj	e75f78c0fac9155c
@@ -19,6 +19,7 @@
 87	4919	7655015664328421	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Sleep.cpp.obj	ce29cd8762a72e0e
 3016	4319	7655015693619018	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/MemoryInputStream.cpp.obj	956291407fe796
 2242	6039	7655015685869734	_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/FileInputStream.cpp.obj	d6b39aaf401d727d
+113	1687	7655033766343598	CMakeFiles/StreetSimulator.dir/StreetSimulatorPresenter.cpp.obj	b96c960ef2fc2ba7
 20013	29859	7655015863585645	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Win32/WindowImplWin32.cpp.obj	f9bdeed674b37f15
 3718	6168	7655015700633653	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Clipboard.cpp.obj	ea55deeee5f41ded
 4320	7164	7655015706660745	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Context.cpp.obj	b6d85aa54712df1c
@@ -64,6 +65,7 @@
 29638	30250	7655015959837811	_deps/freetype-build/CMakeFiles/freetype.dir/src/base/fttype1.c.obj	7a775dc38957c93e
 30047	30646	7655015963920400	_deps/freetype-build/CMakeFiles/freetype.dir/src/bzip2/ftbzip2.c.obj	bb66853bb834e02
 18902	31108	7655015852473953	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Win32/JoystickImpl.cpp.obj	5c7ff30b683401cf
+76	4280	7655034785290424	CMakeFiles/StreetSimulator.dir/StreetSimulatorSFMLView.cpp.obj	31b11ea929b8a557
 29860	31187	7655015962055270	_deps/freetype-build/CMakeFiles/freetype.dir/src/bdf/bdf.c.obj	a98435a94ea66b7c
 30227	31462	7655015965724335	_deps/freetype-build/CMakeFiles/freetype.dir/src/cache/ftcache.c.obj	ff327f8477e54915
 31188	31888	7655015975333024	_deps/freetype-build/CMakeFiles/freetype.dir/src/lzw/ftlzw.c.obj	e370d25a20346d8
@@ -114,14 +116,4 @@
 51306	55161	7655016176511627	_deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderTextureImplDefault.cpp.obj	ee41b4185a049584
 51212	56265	7655016175581624	_deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderTextureImplFBO.cpp.obj	51708eeabb7bc6dd
 56265	58468	7655016226102727	_deps/sfml-build/lib/libsfml-graphics-s-d.a	72e4d4f3a353d9fc
-35	3157	7655027156971553	CMakeFiles/StreetSimulator.dir/StreetSimulatorApp.cpp.obj	483a5f0aa12a5613
-21	7149	7655032672138540	build.ninja	4d6ecc263761563d
-44	590	7655032675043581	CMakeFiles/StreetSimulator.dir/StreetSimulatorPresenter.cpp.obj	b96c960ef2fc2ba7
-36	3754	7655032674972640	CMakeFiles/StreetSimulator.dir/StreetSimulatorSFMLView.cpp.obj	31b11ea929b8a557
-3755	9001	7655032712163150	StreetSimulator.exe	8e816591fc889c7b
-113	1687	7655033766343598	CMakeFiles/StreetSimulator.dir/StreetSimulatorPresenter.cpp.obj	b96c960ef2fc2ba7
-91	5391	7655033766126373	CMakeFiles/StreetSimulator.dir/StreetSimulatorSFMLView.cpp.obj	31b11ea929b8a557
 72	5913	7655033765933398	CMakeFiles/StreetSimulator.dir/StreetSimulatorApp.cpp.obj	483a5f0aa12a5613
-5913	10228	7655033824350747	StreetSimulator.exe	8e816591fc889c7b
-76	4280	7655034785290424	CMakeFiles/StreetSimulator.dir/StreetSimulatorSFMLView.cpp.obj	31b11ea929b8a557
-4282	8013	7655034827341622	StreetSimulator.exe	8e816591fc889c7b
