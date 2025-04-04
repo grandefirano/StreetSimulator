@@ -8,3 +8,6 @@
 /cmake-build-debug/cmake_install.cmake
 /cmake-build-debug/CPackConfig.cmake
 /cmake-build-debug/CPackSourceConfig.cmake
+/cmake-build-debug/Testing/
+/cmake-build-debug/.ninja_deps
+/cmake-build-debug/.ninja_log
