@@ -1,6 +1,6 @@
-#include <iostream>
+#include "StreetSimulatorApp.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    StreetSimulatorApp();
     return 0;
 }
