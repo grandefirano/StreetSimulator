@@ -15,6 +15,11 @@ FetchContent_MakeAvailable(SFML)
 add_executable(StreetSimulator main.cpp
         StreetSimulatorApp.cpp
         StreetSimulatorApp.h
+        StreetSimulatorSFMLView.cpp
+        StreetSimulatorSFMLView.h
+        StreetSimulatorView.h
+        StreetSimulatorPresenter.cpp
+        StreetSimulatorPresenter.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)
