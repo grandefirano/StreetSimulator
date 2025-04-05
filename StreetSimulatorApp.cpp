@@ -17,13 +17,8 @@ StreetSimulatorApp::StreetSimulatorApp() {
     StreetSimulatorView *view = new StreetSimulatorSFMLView(window);
     auto *provider = new WorldMapGridProvider("road1.txt");
     auto grid = provider->provideGrid();
-    for (auto a : grid) {
-        for (auto b: a) {
-            std::cout<<b<<" ";
-        }
-        std::cout<<std::endl;
-    }
-    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view);
+    auto *roadGenerator = new RoadGenerator(grid);
+    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator);
 
     while (window->isOpen()) {
         while (const std::optional event = window->pollEvent()) {

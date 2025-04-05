@@ -23,6 +23,15 @@ add_executable(StreetSimulator main.cpp
         GridType.h
         WorldMapGridProvider.cpp
         WorldMapGridProvider.h
+        RoadOption.h
+        Direction.h
+        Field.h
+        Point.h
+        Direction.h
+        FieldValue.h
+        GlobalConstants.h
+        RoadGenerator.cpp
+        RoadGenerator.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

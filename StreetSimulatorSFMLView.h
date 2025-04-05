@@ -16,10 +16,14 @@ class StreetSimulatorSFMLView : public StreetSimulatorView {
 public:
     StreetSimulatorSFMLView(sf::RenderWindow *window);
     void clear() override;
+    void loadRoads(std::vector<RoadOption> mapRoads) override;
+    void drawRoads() override;
     void drawBackground(int xFieldSize, int yFieldSize) override;
     void render() override;
 private:
     sf::RenderWindow *window;
+    std::vector<std::vector<sf::Vertex>> vertexRoads;
+    std::vector<sf::VertexArray> thickRoads;
     sf::Texture redLightTexture;
     sf::Texture greenLightTexture;
     sf::Texture carTexture;
