@@ -20,6 +20,9 @@ add_executable(StreetSimulator main.cpp
         StreetSimulatorView.h
         StreetSimulatorPresenter.cpp
         StreetSimulatorPresenter.h
+        GridType.h
+        WorldMapGridProvider.cpp
+        WorldMapGridProvider.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)
