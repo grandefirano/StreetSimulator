@@ -26,6 +26,7 @@ void Car::chooseNextRoad() {
 Car::Car(
     int id,
     RoadGenerator *roadGenerator,
+    CollisionDetector *_collisionDetector,
     Field field,
     Speed maxSpeed,
     int patience
@@ -35,7 +36,8 @@ Car::Car(
    field(field),
    maxSpeed(maxSpeed),
    speed(maxSpeed),
-   patience(patience) {
+patience(patience),
+collisionDetector(_collisionDetector) {
     position = getCenterPoint(field);
     nextPoints = {};
     chooseNextRoad();
@@ -47,6 +49,15 @@ std::vector<Point> Car::getNextPoints() {
 
 void Car::checkCollision(std::vector<Car> cars) {
     checkSpeedCollision(cars);
+    if (collisionDetector->checkIntersectionCollision(*this, cars)) {
+        speed = STOP;
+        waitingTime++;
+        if (waitingTime > patience) {
+            nextPoints.clear();
+            chooseNextRoad();
+            waitingTime = 0;
+        }
+    }
 }
 
 Field Car::getField() {
@@ -81,7 +92,6 @@ void Car::checkSpeedCollision(std::vector<Car> cars) {
 bool Car::operator==(const Car &other) const {
     return this->id == other.id;
 }
-
 
 void Car::move() {
     if (speed == STOP) {

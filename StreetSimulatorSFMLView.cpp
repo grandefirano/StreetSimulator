@@ -121,3 +121,19 @@ void StreetSimulatorSFMLView::drawCars(std::vector<Car> cars) {
 void StreetSimulatorSFMLView::render() {
     window->display();
 }
+
+void StreetSimulatorSFMLView::drawLights(std::vector<Light> lights) {
+    for (auto light: lights) {
+        sf::Vector2u textureSize = redLightTexture.getSize();
+        auto vectorLight = sf::Vector2f(light.field.x * SCALE + X_START - textureSize.x / 2,
+                                        light.field.y * SCALE + Y_START - textureSize.y / 2);
+        sf::Sprite sprite(redLightTexture);
+        sprite.setPosition(vectorLight);
+        if (light.isGreen) {
+            sprite.setTexture(greenLightTexture);
+        } else {
+            sprite.setTexture(redLightTexture);
+        }
+        window->draw(sprite);
+    }
+}

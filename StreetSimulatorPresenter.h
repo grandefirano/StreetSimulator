@@ -7,6 +7,8 @@ class StreetSimulatorPresenter {
 private:
     StreetSimulatorView *view;
     RoadGenerator *roadGenerator;
+    LightsManager *lightsManager;
+    CollisionDetector *collisionDetector;
     int timeCount = 0;
     std::vector<Car> cars;
 
@@ -15,7 +17,9 @@ private:
 public:
     StreetSimulatorPresenter(
         StreetSimulatorView *_view,
-        RoadGenerator *_roadGenerator
+        RoadGenerator *_roadGenerator,
+        LightsManager *_lightsManager,
+        CollisionDetector *_collisionDetector
     );
 
     void nextFrame();
