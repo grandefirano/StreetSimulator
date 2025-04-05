@@ -40,6 +40,24 @@ add_executable(StreetSimulator main.cpp
         DirectionException.h
         DirectionDelta.h
         RelativeDirection.h
+        Light.h
+        CollisionDetector.cpp
+        CollisionDetector.h
+        EdgeCollisionHelper.h
+        Intersection.h
+        Intersection.cpp
+        LightsIntersection.cpp
+        LightsIntersection.h
+        LightsManager.cpp
+        LightsManager.h
+        UncontrolledIntersection.cpp
+        UncontrolledIntersection.h
+        VectorHelper.h
+        WorldMapManager.cpp
+        WorldMapManager.h
+        Sign.h
+        PriorityIntersection.cpp
+        PriorityIntersection.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

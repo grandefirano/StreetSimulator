@@ -15,10 +15,13 @@ StreetSimulatorApp::StreetSimulatorApp() {
     auto window = new sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "StreetSimulator");
 
     StreetSimulatorView *view = new StreetSimulatorSFMLView(window);
-    auto *provider = new WorldMapGridProvider("road1.txt");
-    auto grid = provider->provideGrid();
+    auto *worldGridProvider = new WorldMapGridProvider("road1.txt");
+    auto grid = worldGridProvider->provideGrid();
+    auto *lightsManager = new LightsManager(grid);
     auto *roadGenerator = new RoadGenerator(grid);
-    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator);
+    auto *worldMapManager = new WorldMapManager(worldGridProvider);
+    auto *collisionDetector = new CollisionDetector(lightsManager,worldMapManager);
+    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator,lightsManager,collisionDetector,worldMapManager);
 
     while (window->isOpen()) {
         while (const std::optional event = window->pollEvent()) {

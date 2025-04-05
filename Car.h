@@ -5,11 +5,12 @@
 #ifndef CAR_H
 #define CAR_H
 #include "RoadGenerator.h"
+#include "CollisionDetector.h"
 #include "Speed.h"
 
 class Car {
 public:
-    explicit Car(int id, RoadGenerator *roadGenerator, Field field, Speed maxSpeed,
+    explicit Car(int id, RoadGenerator *roadGenerator, CollisionDetector *_collisionDetector, Field field, Speed maxSpeed,
                  int patience);
 
     void move();
@@ -33,6 +34,7 @@ public:
 private:
     int id;
     RoadGenerator *roadGenerator;
+    CollisionDetector *collisionDetector;
     Point position;
     Field field;
     std::vector<Point> nextPoints;

@@ -7,7 +7,6 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/Texture.hpp"
 
-
 namespace sf {
     class VertexArray;
 }
@@ -20,6 +19,8 @@ public:
     void drawRoads() override;
     void drawCars(std::vector<Car> cars) override;
     void drawBackground(int xFieldSize, int yFieldSize) override;
+    void drawSigns(std::vector<Sign> signs) override;
+    void drawLights(std::vector<Light> lights) override;
     void render() override;
 private:
     sf::RenderWindow *window;
@@ -30,6 +31,8 @@ private:
     sf::Texture carTexture;
     sf::Texture asphaltTexture;
     sf::Texture grassTexture;
+    sf::Texture noPrioritySignTexture;
+    sf::Texture prioritySignTexture;
     void loadTextures();
 };
 

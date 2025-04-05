@@ -7,7 +7,8 @@
 #include <string>
 #include <sstream>
 
-#include "Point.h"
+#include "Field.h"
+#include "FieldValue.h"
 
 GridType WorldMapGridProvider::provideGrid() {
     return grid;
@@ -16,7 +17,6 @@ GridType WorldMapGridProvider::provideGrid() {
 WorldMapGridProvider::WorldMapGridProvider(const std::string &filename) {
     readGridFromFile(filename);
 }
-
 
 void WorldMapGridProvider::readGridFromFile(const std::string &filename) {
     GridType gridMap{};
@@ -29,9 +29,9 @@ void WorldMapGridProvider::readGridFromFile(const std::string &filename) {
     std::string line;
     int rowIdx = 0;
 
-    while (std::getline(file, line) && rowIdx < ROWS) {
+    while (std::getline(file, line) && rowIdx < GRID_ROWS) {
         std::stringstream ss(line);
-        for (int colIdx = 0; colIdx < COLS; ++colIdx) {
+        for (int colIdx = 0; colIdx < GRID_COLUMNS; ++colIdx) {
             ss >> gridMap[rowIdx][colIdx];
         }
         ++rowIdx;
