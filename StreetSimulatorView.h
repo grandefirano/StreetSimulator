@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Car.h"
+#include "Crossing.h"
 #include "RoadGenerator.h"
 #include "Light.h"
 #include "Sign.h"
@@ -23,6 +24,8 @@ public:
     virtual void drawLights(std::vector<Light> lights)=0;
 
     virtual void drawSigns(std::vector<Sign> signs)=0;
+
+    virtual void drawCrossings(std::vector<Crossing> crossings)=0;
 
     virtual void render()=0;
 };

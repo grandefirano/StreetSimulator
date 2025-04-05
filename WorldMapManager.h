@@ -3,6 +3,7 @@
 #define WORLDMAPMANAGER_H
 #include <vector>
 
+#include "Crossing.h"
 #include "FieldValue.h"
 #include "Sign.h"
 #include "WorldMapGridProvider.h"
@@ -11,7 +12,7 @@
 class WorldMapManager {
 public:
     std::vector<Sign> createSigns();
-    FieldValue takeFieldValue(int x, int y, GridType &grid);
+    std::vector<Crossing> createCrossings();
     FieldValue takeFieldValue(Field field);
     WorldMapManager(WorldMapGridProvider *_worldMapGridProvider);
 private:

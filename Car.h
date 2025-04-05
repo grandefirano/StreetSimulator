@@ -6,14 +6,15 @@
 #define CAR_H
 #include "RoadGenerator.h"
 #include "CollisionDetector.h"
+#include "Movable.h"
 #include "Speed.h"
 
-class Car {
+class Car :Movable {
 public:
     explicit Car(int id, RoadGenerator *roadGenerator, CollisionDetector *_collisionDetector, Field field, Speed maxSpeed,
                  int patience);
 
-    void move();
+    void move() override;
 
     Point getPosition();
 
@@ -35,12 +36,9 @@ private:
     int id;
     RoadGenerator *roadGenerator;
     CollisionDetector *collisionDetector;
-    Point position;
     Field field;
-    std::vector<Point> nextPoints;
     Direction direction;
     Speed maxSpeed;
-    Speed speed;
     int patience;
     int waitingTime;
 

@@ -35,10 +35,10 @@ Car::Car(
    roadGenerator(roadGenerator),
    field(field),
    maxSpeed(maxSpeed),
-   speed(maxSpeed),
-patience(patience),
-collisionDetector(_collisionDetector) {
+   patience(patience),
+   collisionDetector(_collisionDetector) {
     position = getCenterPoint(field);
+    speed = maxSpeed;
     nextPoints = {};
     chooseNextRoad();
 }
@@ -94,20 +94,7 @@ bool Car::operator==(const Car &other) const {
 }
 
 void Car::move() {
-    if (speed == STOP) {
-    } else if (speed == SLOW) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin());
-    } else if (speed == NORMAL) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin(), nextPoints.begin() + 2);
-    } else if (speed == FAST) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin(), nextPoints.begin() + 3);
-    }
-    if (nextPoints.size() == 0) {
-        std::cout << "No upcoming points for the car" << std::endl;
-    }
+    Movable::move();
     auto newPositionField = mapToField(position);
     if (newPositionField.x != field.x || newPositionField.y != field.y) {
         field = newPositionField;

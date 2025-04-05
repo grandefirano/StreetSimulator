@@ -58,6 +58,13 @@ add_executable(StreetSimulator main.cpp
         Sign.h
         PriorityIntersection.cpp
         PriorityIntersection.h
+        Movable.cpp
+        Movable.h
+        Pedestrian.cpp
+        Pedestrian.h
+        CrosswalkManager.cpp
+        CrosswalkManager.h
+        Crossing.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

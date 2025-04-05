@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+#include "GlobalConstants.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/VertexArray.hpp"
@@ -30,6 +31,9 @@ void StreetSimulatorSFMLView::loadTextures() {
     }
     if (!prioritySignTexture.loadFromFile("textures/priority_sign.png")) {
         std::cerr << "Error loading priority sign texture";
+    }
+    if (!crossingTexture.loadFromFile("textures/crossing_img.png")) {
+        std::cerr << "Error loading priority crossing texture";
     }
 }
 
@@ -154,11 +158,29 @@ void StreetSimulatorSFMLView::drawSigns(std::vector<Sign> signs) {
             texture = noPrioritySignTexture;
         }
         sf::Vector2u textureSize = texture.getSize();
-        auto vectorLight = sf::Vector2f(sign.field.x * SCALE + X_START - textureSize.x / 2,
+        auto vectorSign = sf::Vector2f(sign.field.x * SCALE + X_START - textureSize.x / 2,
                                         sign.field.y * SCALE + Y_START - textureSize.y / 2);
         sf::Sprite sprite(texture);
-        sprite.setPosition(vectorLight);
+        sprite.setPosition(vectorSign);
         sprite.setTexture(texture);
         window->draw(sprite);
     }
 }
+
+void StreetSimulatorSFMLView::drawCrossings(std::vector<Crossing> crossings) {
+    for (auto crossing : crossings) {
+        auto texture = crossingTexture;
+        sf::Vector2u textureSize = texture.getSize();
+        auto vectorCrossing = sf::Vector2f(crossing.field.x * SCALE + X_START,
+                                        crossing.field.y * SCALE + Y_START);
+        sf::Sprite sprite(texture);
+        sprite.setPosition(vectorCrossing);
+        sprite.setOrigin(sf::Vector2f(textureSize.x /2 , textureSize.y /2));
+        if (crossing.isHorizontal) {
+            sprite.setRotation(sf::degrees(90));
+        }
+        sprite.setTexture(texture);
+        window->draw(sprite);
+    }
+}
+

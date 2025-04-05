@@ -21,6 +21,7 @@ public:
     void drawBackground(int xFieldSize, int yFieldSize) override;
     void drawSigns(std::vector<Sign> signs) override;
     void drawLights(std::vector<Light> lights) override;
+    void drawCrossings(std::vector<Crossing> crossings) override;
     void render() override;
 private:
     sf::RenderWindow *window;
@@ -33,6 +34,8 @@ private:
     sf::Texture grassTexture;
     sf::Texture noPrioritySignTexture;
     sf::Texture prioritySignTexture;
+    sf::Texture crossingTexture;
+    sf::Texture pedestrianTexture;
     void loadTextures();
 };
 

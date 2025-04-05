@@ -13,6 +13,7 @@ private:
     int timeCount = 0;
     std::vector<Car> cars;
     std::vector<Sign> signs;
+    std::vector<Crossing> crossings;
 
     void initPresenter(
     WorldMapManager *worldMapManager

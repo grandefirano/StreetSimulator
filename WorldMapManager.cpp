@@ -1,5 +1,6 @@
 #include "WorldMapManager.h"
 
+#include "Crossing.h"
 #include "FieldValue.h"
 
 std::vector<Sign> WorldMapManager::createSigns() {
@@ -18,6 +19,23 @@ std::vector<Sign> WorldMapManager::createSigns() {
         }
     }
     return signs;
+}
+
+std::vector<Crossing> WorldMapManager::createCrossings() {
+    //TODO caching grid
+    auto grid = worldMapGridProvider->provideGrid();
+    std::vector<Crossing> crossings;
+    for (int y = 0; y < grid.size(); y++) {
+        for (int x = 0; x < grid[y].size(); x++) {
+            auto fieldValue = takeFieldValue(Field(x,y));
+            if (fieldValue==FV_CROSSING) {
+                auto fieldValueRight = takeFieldValue(Field(x+1,y));
+                auto isHorizontal = fieldValueRight == FV_RIGHT || fieldValueRight == FV_LEFT;
+                crossings.push_back(Crossing(Field(x, y), isHorizontal));
+            }
+        }
+    }
+    return crossings;
 }
 
 FieldValue WorldMapManager::takeFieldValue(Field field) {
