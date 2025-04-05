@@ -106,6 +106,18 @@ void StreetSimulatorSFMLView::drawBackground(const int xFieldSize, const int yFi
     }
 }
 
+void StreetSimulatorSFMLView::drawCars(std::vector<Car> cars) {
+    for (auto car: cars) {
+        auto carPosition = car.getPosition();
+        auto vectorCar = sf::Vector2f(carPosition.x + X_START, carPosition.y + Y_START);
+        sf::Sprite sprite(carTexture);
+        sprite.setOrigin(sf::Vector2f(carTexture.getSize().x / 2, carTexture.getSize().y / 2));
+        sprite.setRotation(sf::degrees(car.getRotation()));
+        sprite.setPosition(vectorCar);
+        window->draw(sprite);
+    }
+}
+
 void StreetSimulatorSFMLView::render() {
     window->display();
 }

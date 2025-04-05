@@ -8,6 +8,7 @@ private:
     StreetSimulatorView *view;
     RoadGenerator *roadGenerator;
     int timeCount = 0;
+    std::vector<Car> cars;
 
     void initPresenter();
 

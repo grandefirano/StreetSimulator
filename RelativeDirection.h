@@ -1,0 +1,9 @@
+
+#ifndef RELATIVEDIRECTION_H
+#define RELATIVEDIRECTION_H
+
+enum RelativeDirection {
+    REL_STRAIGHT,REL_LEFT,REL_RIGHT
+};
+
+#endif //RELATIVEDIRECTION_H

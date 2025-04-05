@@ -32,6 +32,14 @@ add_executable(StreetSimulator main.cpp
         GlobalConstants.h
         RoadGenerator.cpp
         RoadGenerator.h
+        Car.cpp
+        Car.h
+        DirectionMapper.h
+        FieldHelper.h
+        Speed.h
+        DirectionException.h
+        DirectionDelta.h
+        RelativeDirection.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)
