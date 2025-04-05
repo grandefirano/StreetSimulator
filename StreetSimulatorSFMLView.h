@@ -18,6 +18,7 @@ public:
     void clear() override;
     void loadRoads(std::vector<RoadOption> mapRoads) override;
     void drawRoads() override;
+    void drawCars(std::vector<Car> cars) override;
     void drawBackground(int xFieldSize, int yFieldSize) override;
     void render() override;
 private:

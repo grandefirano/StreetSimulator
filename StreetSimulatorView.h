@@ -3,6 +3,7 @@
 #define STREETSIMULATORVIEW_H
 #include <vector>
 
+#include "Car.h"
 #include "RoadGenerator.h"
 
 class StreetSimulatorView {
@@ -14,6 +15,8 @@ public:
     virtual void loadRoads(std::vector<RoadOption> mapRoads)=0;
 
     virtual void drawRoads()=0;
+
+    virtual void drawCars(std::vector<Car> cars)=0;
 
     virtual void render()=0;
 };
