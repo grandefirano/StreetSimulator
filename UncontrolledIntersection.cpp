@@ -19,7 +19,6 @@ bool UncontrolledIntersection::canGo(Car &currentCar, Direction currentDirection
             }
         }
     }
-    std::cout<<"  UNCONTROLEED has colission? "<<hasCollision<<std::endl;
     return !hasCollision;
 }
 

@@ -36,9 +36,7 @@ bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &c
         }
     } catch (DirectionException directionException) {
         // the car is on the intersection
-        std::cout<<"  COLISSION EXCEPTION";
         return false;
     }
-    std::cout<<"  HAS COLISSION?"<<hasCollision <<std::endl;
     return hasCollision;
 }

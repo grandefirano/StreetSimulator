@@ -18,7 +18,6 @@ PriorityIntersection::PriorityIntersection(WorldMapManager *_worldMapManager) {
 
 bool PriorityIntersection::canGo(Car &currentCar, Direction currentDirection,
                                  std::vector<Car> collidingCars) {
-    std::cout<< " PRIORITY INTERSECTION"<<std::endl;
     bool hasCollision = false;
     auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(currentCar.getField(), currentDirection));
     auto isOnPriorityRoad = rightFieldValue == FV_PRIORITY_SIGN;
