@@ -6,6 +6,7 @@
 #include "Car.h"
 #include "RoadGenerator.h"
 #include "Light.h"
+#include "Sign.h"
 
 class StreetSimulatorView {
 public:
@@ -20,6 +21,8 @@ public:
     virtual void drawCars(std::vector<Car> cars)=0;
 
     virtual void drawLights(std::vector<Light> lights)=0;
+
+    virtual void drawSigns(std::vector<Sign> signs)=0;
 
     virtual void render()=0;
 };

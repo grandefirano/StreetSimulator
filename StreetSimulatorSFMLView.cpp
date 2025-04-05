@@ -25,6 +25,12 @@ void StreetSimulatorSFMLView::loadTextures() {
     if (!grassTexture.loadFromFile("textures/grass.jpg")) {
         std::cerr << "Error loading grass texture";
     }
+    if (!noPrioritySignTexture.loadFromFile("textures/no_priority_sign.jpg")) {
+        std::cerr << "Error loading no priority sign texture";
+    }
+    if (!prioritySignTexture.loadFromFile("textures/priority_sign.png")) {
+        std::cerr << "Error loading priority sign texture";
+    }
 }
 
 sf::VertexArray createThickLineStrip(const std::vector<sf::Vector2f> &points, float thickness, sf::Color color) {
@@ -134,6 +140,25 @@ void StreetSimulatorSFMLView::drawLights(std::vector<Light> lights) {
         } else {
             sprite.setTexture(redLightTexture);
         }
+        window->draw(sprite);
+    }
+}
+
+void StreetSimulatorSFMLView::drawSigns(std::vector<Sign> signs) {
+    for (auto sign: signs) {
+        sf::Texture texture;
+        if (sign.type == PRIORITY) {
+            texture = prioritySignTexture;
+        }
+        if (sign.type == NO_PRIORITY) {
+            texture = noPrioritySignTexture;
+        }
+        sf::Vector2u textureSize = texture.getSize();
+        auto vectorLight = sf::Vector2f(sign.field.x * SCALE + X_START - textureSize.x / 2,
+                                        sign.field.y * SCALE + Y_START - textureSize.y / 2);
+        sf::Sprite sprite(texture);
+        sprite.setPosition(vectorLight);
+        sprite.setTexture(texture);
         window->draw(sprite);
     }
 }

@@ -29,9 +29,9 @@ void WorldMapGridProvider::readGridFromFile(const std::string &filename) {
     std::string line;
     int rowIdx = 0;
 
-    while (std::getline(file, line) && rowIdx < ROWS) {
+    while (std::getline(file, line) && rowIdx < GRID_ROWS) {
         std::stringstream ss(line);
-        for (int colIdx = 0; colIdx < COLS; ++colIdx) {
+        for (int colIdx = 0; colIdx < GRID_COLUMNS; ++colIdx) {
             ss >> gridMap[rowIdx][colIdx];
         }
         ++rowIdx;

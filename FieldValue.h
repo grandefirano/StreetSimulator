@@ -1,8 +1,9 @@
 #ifndef FIELDVALUE_H
 #define FIELDVALUE_H
+#include <stdexcept>
 
 enum FieldValue {
-    FV_UP, FV_DOWN, FV_LEFT, FV_RIGHT, FV_INTERSECTION, FV_LIGHT, FV_ENVIRONMENT
+    FV_UP, FV_DOWN, FV_LEFT, FV_RIGHT, FV_INTERSECTION, FV_LIGHT, FV_ENVIRONMENT,FV_PRIORITY_SIGN, FV_NO_PRIORITY_SIGN
 };
 
 inline FieldValue mapToFieldValue(const std::string &fieldValue) {
@@ -12,10 +13,12 @@ inline FieldValue mapToFieldValue(const std::string &fieldValue) {
     if (fieldValue == "<") return FV_LEFT;
     if (fieldValue == "x") return FV_INTERSECTION;
     if (fieldValue == "s") return FV_LIGHT;
+    if (fieldValue == "p") return FV_PRIORITY_SIGN;
+    if (fieldValue == "u") return FV_NO_PRIORITY_SIGN;
     if (fieldValue == ".") return FV_ENVIRONMENT;
     throw std::invalid_argument("Invalid field value");
 }
-
+//TODO jk maybe move to WorldMapGenerator
 inline FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
     if (y < grid.size() && x < grid[y].size()) {
         return mapToFieldValue(grid[y][x]);

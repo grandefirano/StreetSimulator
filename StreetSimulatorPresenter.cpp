@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "Car.h"
+#include "WorldMapGenerator.h"
 
 std::vector<Car> getOtherCars(Car &car, std::vector<Car> &cars) {
     auto others = cars;
@@ -34,19 +35,20 @@ StreetSimulatorPresenter::StreetSimulatorPresenter(
     StreetSimulatorView *_view,
     RoadGenerator *_roadGenerator,
     LightsManager *_lightsManager,
-    CollisionDetector *_collisionDetector
+    CollisionDetector *_collisionDetector,
+    WorldMapGenerator *_worldMapGenerator
 ) {
     view = _view;
     roadGenerator = _roadGenerator;
     lightsManager = _lightsManager;
     collisionDetector = _collisionDetector;
-    initPresenter();
+    initPresenter(_worldMapGenerator);
 }
 
-void StreetSimulatorPresenter::initPresenter() {
+void StreetSimulatorPresenter::initPresenter(WorldMapGenerator *worldMapGenerator) {
     auto mapRoads = roadGenerator->createRoads();
     cars = generateCars(roadGenerator, collisionDetector);
-
+    signs = worldMapGenerator->createSigns();
     view->loadRoads(mapRoads);
 }
 
@@ -60,9 +62,10 @@ void StreetSimulatorPresenter::nextFrame() {
     }
     view->clear();
     //TODO jk refactor to pass size
-    view->drawBackground(19, 19);
+    view->drawBackground(GRID_COLUMNS, GRID_ROWS);
     view->drawRoads();
     view->drawLights(lightsManager->getAllLights());
+    view->drawSigns(signs);
     view->drawCars(cars);
     view->render();
     timeCount++;

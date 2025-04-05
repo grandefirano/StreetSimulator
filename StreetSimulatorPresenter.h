@@ -2,6 +2,7 @@
 #define STREETSIMULATORPRESENTER_H
 #include "StreetSimulatorView.h"
 #include "RoadGenerator.h"
+#include "WorldMapGenerator.h"
 
 class StreetSimulatorPresenter {
 private:
@@ -11,15 +12,19 @@ private:
     CollisionDetector *collisionDetector;
     int timeCount = 0;
     std::vector<Car> cars;
+    std::vector<Sign> signs;
 
-    void initPresenter();
+    void initPresenter(
+    WorldMapGenerator *worldMapGenerator
+    );
 
 public:
     StreetSimulatorPresenter(
         StreetSimulatorView *_view,
         RoadGenerator *_roadGenerator,
         LightsManager *_lightsManager,
-        CollisionDetector *_collisionDetector
+        CollisionDetector *_collisionDetector,
+        WorldMapGenerator *_worldMapGenerator
     );
 
     void nextFrame();
