@@ -1,6 +1,7 @@
 
 #include "CollisionDetector.h"
 
+#include <iostream>
 #include <vector>
 
 #include "Car.h"
@@ -9,23 +10,25 @@
 #include "FieldValue.h"
 #include "Intersection.h"
 #include "LightsIntersection.h"
+#include "PriorityIntersection.h"
 #include "UncontrolledIntersection.h"
 
-CollisionDetector::CollisionDetector(WorldMapGridProvider *worldMapGridProvider,LightsManager *_lightsManager) {
-    grid = worldMapGridProvider->provideGrid();
+CollisionDetector::CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager) {
+    worldMapManager = _worldMapManager;
     lightsManager = _lightsManager;
 }
 
 bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &cars) {
     bool hasCollision = false;
     try {
-        auto currentDirection = DirectionMapper::parseToDirection(takeFieldValue(car.getField(), grid));
-        if (takeFieldValue(getOneFront(car.getField(), currentDirection), grid)== FV_INTERSECTION) {
+        auto currentDirection = DirectionMapper::parseToDirection(worldMapManager->takeFieldValue(car.getField()));
+        if (worldMapManager->takeFieldValue(getOneFront(car.getField(), currentDirection))== FV_INTERSECTION) {
             Intersection *intersection;
-            auto rightField = getOneRight(car.getField(), currentDirection);
-            if (takeFieldValue(rightField,grid)==FV_LIGHT) {
-
+            auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(car.getField(), currentDirection));
+            if (rightFieldValue==FV_LIGHT) {
                 intersection = new LightsIntersection(lightsManager);
+            } else if (rightFieldValue == FV_PRIORITY_SIGN || rightFieldValue == FV_NO_PRIORITY_SIGN) {
+                intersection = new PriorityIntersection(worldMapManager);
             } else {
                 intersection = new UncontrolledIntersection();
             }
@@ -33,7 +36,9 @@ bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &c
         }
     } catch (DirectionException directionException) {
         // the car is on the intersection
+        std::cout<<"  COLISSION EXCEPTION";
         return false;
     }
+    std::cout<<"  HAS COLISSION?"<<hasCollision <<std::endl;
     return hasCollision;
 }

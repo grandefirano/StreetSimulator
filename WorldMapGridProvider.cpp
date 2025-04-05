@@ -7,7 +7,8 @@
 #include <string>
 #include <sstream>
 
-#include "Point.h"
+#include "Field.h"
+#include "FieldValue.h"
 
 GridType WorldMapGridProvider::provideGrid() {
     return grid;
@@ -16,7 +17,6 @@ GridType WorldMapGridProvider::provideGrid() {
 WorldMapGridProvider::WorldMapGridProvider(const std::string &filename) {
     readGridFromFile(filename);
 }
-
 
 void WorldMapGridProvider::readGridFromFile(const std::string &filename) {
     GridType gridMap{};

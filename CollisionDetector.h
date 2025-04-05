@@ -3,16 +3,17 @@
 #define COLLISIONDETECTOR_H
 #include "WorldMapGridProvider.h"
 #include "LightsManager.h"
+#include "WorldMapManager.h"
 
 class Car;
 
 class CollisionDetector {
 public:
-    CollisionDetector(WorldMapGridProvider *worldMapGridProvider,LightsManager *_lightsManager);
+    CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager);
     bool checkIntersectionCollision(Car &car,std::vector<Car> &cars);
 private:
     LightsManager *lightsManager;
-    GridType grid;
+    WorldMapManager *worldMapManager;
 };
 
 #endif //COLLISIONDETECTOR_H

@@ -14,6 +14,14 @@
 
 #include "GlobalConstants.h"
 
+//TODO jk maybe move to WorldMapManager
+inline FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
+    if (y < grid.size() && x < grid[y].size()) {
+        return mapToFieldValue(grid[y][x]);
+    }
+    throw std::invalid_argument("Field is out of range");
+}
+
 std::vector<Point> generateQuarterCircle(double cx, double cy, double radius, double startAngle, double endAngle,
                                          int numSegments) {
     std::vector<Point> arcPoints;

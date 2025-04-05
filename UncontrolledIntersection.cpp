@@ -1,5 +1,8 @@
 
 #include "UncontrolledIntersection.h"
+
+#include <iostream>
+
 #include "Car.h"
 #include "DirectionMapper.h"
 #include "EdgeCollisionHelper.h"
@@ -16,6 +19,7 @@ bool UncontrolledIntersection::canGo(Car &currentCar, Direction currentDirection
             }
         }
     }
+    std::cout<<"  UNCONTROLEED has colission? "<<hasCollision<<std::endl;
     return !hasCollision;
 }
 
@@ -23,7 +27,6 @@ bool UncontrolledIntersection::compareEqualPriority(Car &currentCar, Car &car, c
     auto field = currentCar.getField();
     auto onTheRight = getIntersectionEntrance(field, currentDirection, ENTR_RIGHT);
     auto inFront = getIntersectionEntrance(field, currentDirection, ENTR_STRAIGHT);
-    auto onTheLeft = getIntersectionEntrance(field, currentDirection, ENTR_LEFT);
     auto intersection = getIntersectionFields(field, currentDirection);
 
     auto relativeDirection = DirectionMapper::parseToRelativeDirection(currentDirection, currentCar.getNextDirection());

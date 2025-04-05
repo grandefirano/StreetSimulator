@@ -19,9 +19,9 @@ StreetSimulatorApp::StreetSimulatorApp() {
     auto grid = worldGridProvider->provideGrid();
     auto *lightsManager = new LightsManager(grid);
     auto *roadGenerator = new RoadGenerator(grid);
-    auto *collisionDetector = new CollisionDetector(worldGridProvider,lightsManager);
-    auto *worldMapGenerator = new WorldMapGenerator(worldGridProvider);
-    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator,lightsManager,collisionDetector,worldMapGenerator);
+    auto *worldMapManager = new WorldMapManager(worldGridProvider);
+    auto *collisionDetector = new CollisionDetector(lightsManager,worldMapManager);
+    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator,lightsManager,collisionDetector,worldMapManager);
 
     while (window->isOpen()) {
         while (const std::optional event = window->pollEvent()) {

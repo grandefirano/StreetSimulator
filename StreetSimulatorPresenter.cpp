@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "Car.h"
-#include "WorldMapGenerator.h"
+#include "WorldMapManager.h"
 
 std::vector<Car> getOtherCars(Car &car, std::vector<Car> &cars) {
     auto others = cars;
@@ -14,15 +14,18 @@ std::vector<Car> getOtherCars(Car &car, std::vector<Car> &cars) {
 
 std::vector<Car> generateCars(RoadGenerator *generator, CollisionDetector *collisionDetector) {
     Car carBottom = Car(1, generator, collisionDetector, Field(8, 11), NORMAL, 101);
+    Car carTop = Car(6, generator, collisionDetector, Field(7, 4), NORMAL, 101);
     Car carLeft = Car(2, generator, collisionDetector, Field(4, 9), NORMAL, 102);
     Car carRight = Car(3, generator, collisionDetector, Field(11, 8), NORMAL, 103);
     Car car1 = carLeft;
     Car car2 = carBottom;
     Car car3 = carRight;
+    Car car4 = carTop;
     std::vector<Car> cars;
     cars.push_back(car1);
     cars.push_back(car2);
     cars.push_back(car3);
+    cars.push_back(car4);
 
     Car carNormal = Car(4, generator, collisionDetector, Field(16, 4), NORMAL, 60);
     Car carFast = Car(5, generator, collisionDetector, Field(16, 7), SLOW, 120);
@@ -36,19 +39,19 @@ StreetSimulatorPresenter::StreetSimulatorPresenter(
     RoadGenerator *_roadGenerator,
     LightsManager *_lightsManager,
     CollisionDetector *_collisionDetector,
-    WorldMapGenerator *_worldMapGenerator
+    WorldMapManager *_worldMapManager
 ) {
     view = _view;
     roadGenerator = _roadGenerator;
     lightsManager = _lightsManager;
     collisionDetector = _collisionDetector;
-    initPresenter(_worldMapGenerator);
+    initPresenter(_worldMapManager);
 }
 
-void StreetSimulatorPresenter::initPresenter(WorldMapGenerator *worldMapGenerator) {
+void StreetSimulatorPresenter::initPresenter(WorldMapManager *worldMapManager) {
     auto mapRoads = roadGenerator->createRoads();
     cars = generateCars(roadGenerator, collisionDetector);
-    signs = worldMapGenerator->createSigns();
+    signs = worldMapManager->createSigns();
     view->loadRoads(mapRoads);
 }
 

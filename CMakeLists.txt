@@ -53,9 +53,11 @@ add_executable(StreetSimulator main.cpp
         UncontrolledIntersection.cpp
         UncontrolledIntersection.h
         VectorHelper.h
-        WorldMapGenerator.cpp
-        WorldMapGenerator.h
+        WorldMapManager.cpp
+        WorldMapManager.h
         Sign.h
+        PriorityIntersection.cpp
+        PriorityIntersection.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)
