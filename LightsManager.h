@@ -7,12 +7,12 @@
 
 class LightsManager {
 public:
-    LightsManager(GridType &grid);
+    LightsManager(WorldMapGridProvider *_worldMapGridProvider);
     bool isGreenLight(Field &field);
     std::vector<Light> getAllLights();
     void setTime(int time);
 private:
-    void findIntersectionLights(GridType &grid);
+    void findIntersectionLights(const GridType &grid);
     std::vector<Field> group1;
     std::vector<Field> group2;
     int time;

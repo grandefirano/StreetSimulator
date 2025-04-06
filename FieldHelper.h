@@ -10,14 +10,14 @@
 #include <math.h>
 
 inline Field mapToField(Point point) {
-    int x = std::ceil(point.x / M_SCALE - 0.5);
-    int y = std::ceil(point.y / M_SCALE - 0.5);
+    int x = std::ceil(point.x / FIELD_SCALE - 0.5);
+    int y = std::ceil(point.y / FIELD_SCALE - 0.5);
     return Field(x, y);
 }
 
 inline Point getCenterPoint(Field field) {
-    int x = (field.x + 0.5) * M_SCALE;
-    int y = (field.y + 0.5) * M_SCALE;
+    int x = (field.x + 0.5) * FIELD_SCALE;
+    int y = (field.y + 0.5) * FIELD_SCALE;
     return Point(x, y);
 }
 

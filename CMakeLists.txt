@@ -65,6 +65,8 @@ add_executable(StreetSimulator main.cpp
         CrosswalkManager.cpp
         CrosswalkManager.h
         Crossing.h
+        CarGenerator.cpp
+        CarGenerator.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

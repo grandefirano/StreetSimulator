@@ -17,7 +17,7 @@ void LightsManager::setTime(int _time) {
     time = _time;
 }
 
-void LightsManager::findIntersectionLights(GridType &grid) {
+void LightsManager::findIntersectionLights(const GridType &grid) {
     for (int y = 0; y < grid.size(); y++) {
         for (int x = 0; x < grid[y].size(); x++) {
             auto value = grid[y][x];
@@ -56,6 +56,6 @@ bool LightsManager::isGreenLight(Field &field) {
     return false;
 }
 
-LightsManager::LightsManager(GridType &grid) {
-    findIntersectionLights(grid);
+LightsManager::LightsManager(WorldMapGridProvider *_worldMapGridProvider) {
+    findIntersectionLights(_worldMapGridProvider->provideGrid());
 }

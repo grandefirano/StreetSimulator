@@ -53,8 +53,11 @@ bool CollisionDetector::checkPedestrianCollision(Car &currentCar, std::vector<Pe
         auto isBeforeCrosswalk = frontFieldValue == FV_CROSSING;
         if (isBeforeCrosswalk) {
             for (auto &pedestrian: pedestrians) {
-                auto isEdgeCollision = checkEdgeCollision(pedestrian.getNextPoints(), currentCar.getNextPoints(),
-                                                          M_SCALE/2);
+                auto isEdgeCollision = checkEdgeCollision(
+                    pedestrian.getNextPoints(),
+                    currentCar.getNextPoints(),
+                    FIELD_SCALE / 2
+                );
                 if (isEdgeCollision) {
                     hasCollision = true;
                 }

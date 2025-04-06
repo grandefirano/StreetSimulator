@@ -13,10 +13,11 @@
 #include "Field.h"
 #include "GridType.h"
 #include "RoadOption.h"
+#include "WorldMapGridProvider.h"
 
 class RoadGenerator {
 public:
-   RoadGenerator(GridType grid);
+   RoadGenerator(WorldMapGridProvider *_worldMapGridProvider);
    std::vector<RoadOption> createRoads();
    std::vector<RoadOption> createRoadPossibilities(Field field,Direction direction);
 

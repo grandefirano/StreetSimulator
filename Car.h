@@ -12,8 +12,14 @@
 
 class Car : public Movable {
 public:
-    explicit Car(int id, RoadGenerator *roadGenerator, CollisionDetector *_collisionDetector, Field field, Speed maxSpeed,
-                 int patience);
+    Car(
+        int id,
+        RoadGenerator *roadGenerator,
+        CollisionDetector *_collisionDetector,
+        Field field,
+        Speed maxSpeed,
+        int patience
+    );
 
     void move() override;
 
@@ -27,7 +33,7 @@ public:
 
     std::vector<Point> getNextPoints();
 
-    void checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians);
+    void checkCollision(std::vector<Car> cars, std::vector<Pedestrian> pedestrians);
 
     bool operator==(const Car &other) const;
 
@@ -43,8 +49,7 @@ private:
 
     void chooseNextRoad();
 
-    void checkSpeedCollision(std::vector<Car> cars);
-
+    void checkSpeedCollision(const std::vector<Car> &cars);
 };
 
 

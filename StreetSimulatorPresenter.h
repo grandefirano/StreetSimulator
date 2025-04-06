@@ -1,5 +1,6 @@
 #ifndef STREETSIMULATORPRESENTER_H
 #define STREETSIMULATORPRESENTER_H
+#include "CarGenerator.h"
 #include "CrosswalkManager.h"
 #include "StreetSimulatorView.h"
 #include "RoadGenerator.h"
@@ -8,27 +9,23 @@
 class StreetSimulatorPresenter {
 private:
     StreetSimulatorView *view;
-    RoadGenerator *roadGenerator;
     LightsManager *lightsManager;
     CrosswalkManager *crosswalkManager;
-    CollisionDetector *collisionDetector;
     int timeCount = 0;
     std::vector<Car> cars;
     std::vector<Sign> signs;
     std::vector<Crossing> crossings;
 
-    void initPresenter(
-    WorldMapManager *worldMapManager
-    );
+    void initPresenter(WorldMapManager *worldMapManager, RoadGenerator *roadGenerator, CarGenerator *carGenerator);
 
 public:
     StreetSimulatorPresenter(
         StreetSimulatorView *_view,
         RoadGenerator *_roadGenerator,
         LightsManager *_lightsManager,
-        CollisionDetector *_collisionDetector,
         WorldMapManager *_worldMapManager,
-        CrosswalkManager *_crosswalkManager
+        CrosswalkManager *_crosswalkManager,
+        CarGenerator *_carGenerator
     );
 
     void nextFrame();
