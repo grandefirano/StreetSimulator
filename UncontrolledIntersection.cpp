@@ -15,7 +15,7 @@ bool UncontrolledIntersection::canGo(
     ) {
     bool hasCollision = false;
     for (auto &car: collidingCars) {
-        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 2);
         if (isEdgeCollision) {
             if (!compareEqualPriority(currentCar, car, currentDirection)) {
                 hasCollision = true;

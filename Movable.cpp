@@ -31,3 +31,11 @@ float Movable::getRotation() {
     auto nextPoint = nextPoints.at(2);
     return atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x) * 180 / PI;
 }
+
+Point Movable::getPosition() const {
+    return position;
+}
+
+std::vector<Point> Movable::getNextPoints() const {
+    return nextPoints;
+}

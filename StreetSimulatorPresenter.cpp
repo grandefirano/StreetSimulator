@@ -28,8 +28,8 @@ void StreetSimulatorPresenter::initPresenter(
     CarGenerator *carGenerator
     ) {
     cars = carGenerator->generateCars();
-    signs = worldMapManager->createSigns();
-    crossings = worldMapManager->createCrossings();
+    signs = worldMapManager->provideSigns();
+    crossings = worldMapManager->provideCrossings();
     auto mapRoads = roadGenerator->createRoads();
     view->loadRoads(mapRoads);
 }

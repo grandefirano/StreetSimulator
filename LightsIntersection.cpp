@@ -11,7 +11,7 @@ bool LightsIntersection::canGo(const Car &currentCar,const Direction &currentDir
     bool hasCollision = false;
     auto rightField = getOneRight(currentCar.getField(), currentDirection);
     for (auto car: collidingCars) {
-        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 2);
         if (lightsManager->isGreenLight(rightField)) {
             if (isEdgeCollision) {
                 if (!compareLightsPriority(currentCar, car, currentDirection)) {

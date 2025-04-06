@@ -6,8 +6,21 @@
 #include "RoadGenerator.h"
 #include "WorldMapManager.h"
 
+/**
+ * @class StreetSimulatorPresenter
+ * @brief Core class of the MVP architecture of the application, responsible for managing the Models and View.
+ */
 class StreetSimulatorPresenter {
 public:
+    /**
+     * @brief Constructor of StreetSimulatorPresenter
+     * @param _view View of the application.
+     * @param _roadGenerator Generator of roads.
+     * @param _lightsManager Manager of all the traffic lights.
+     * @param _worldMapManager World map manager.
+     * @param _crosswalkManager Manager of all pedestrian crossings.
+     * @param _carGenerator Generators of cars on the map.
+     */
     StreetSimulatorPresenter(
         StreetSimulatorView *_view,
         RoadGenerator *_roadGenerator,
@@ -17,6 +30,10 @@ public:
         CarGenerator *_carGenerator
     );
 
+    /**
+     *
+     * @brief Calls model and view actions for the next frame to  do calculations, update the state and redraw the view.
+     */
     void nextFrame();
 private:
     StreetSimulatorView *view;

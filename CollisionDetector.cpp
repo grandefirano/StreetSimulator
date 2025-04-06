@@ -55,7 +55,7 @@ bool CollisionDetector::checkPedestrianCollision(const Car &currentCar, const st
                 auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(
                     pedestrian.getNextPoints(),
                     currentCar.getNextPoints(),
-                    FIELD_SCALE / 2
+                    FIELD_SCALE
                 );
                 if (isEdgeCollision) {
                     hasCollision = true;

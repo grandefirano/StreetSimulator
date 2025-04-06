@@ -15,7 +15,7 @@ bool PriorityIntersection::canGo(const Car &currentCar,const Direction &currentD
     auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(currentCar.getField(), currentDirection));
     auto isOnPriorityRoad = rightFieldValue == FV_PRIORITY_SIGN;
     for (auto &car: collidingCars) {
-        if (edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 3)) {
+        if (edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 2)) {
             auto intersection = getIntersectionFields(currentCar.getField(), currentDirection);
             if (contains<Field>(intersection, car.getField())) {
                 return false;

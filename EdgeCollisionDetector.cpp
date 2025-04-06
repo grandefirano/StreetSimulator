@@ -2,12 +2,10 @@
 #include "EdgeCollisionDetector.h"
 #include<math.h>
 
-bool EdgeCollisionDetector::checkEdgeCollision(const std::vector<Point> &curve1, const std::vector<Point> &curve2, double thickness) {
-    double threshold = 2 * thickness;
-
-    for (const auto &p1: curve1) {
-        for (const auto &p2: curve2) {
-            if (distance(p1, p2) < threshold)
+bool EdgeCollisionDetector::checkEdgeCollision(const std::vector<Point> &points1, const std::vector<Point> &points2, double threshold) {
+    for (const auto &point1: points1) {
+        for (const auto &point2: points2) {
+            if (distance(point1, point2) < threshold)
                 return true;
         }
     }

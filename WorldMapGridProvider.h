@@ -10,10 +10,23 @@
 
 #include "GridType.h"
 
+/**
+ * @class WorldMapGridProvider
+ * @brief Provides a grid of the world map from file.
+ */
 class WorldMapGridProvider {
 public:
-    GridType provideGrid();
+    /**
+     * @brief Constructor of WorldMapGridProvider.
+     * @param filename Name of the file that stores in a text format structure of all the world map grid with its field types
+     */
     WorldMapGridProvider(const std::string &filename);
+
+    /**
+     * @brief Provides full grid of the world map.
+     * @return World map grid two-dimensional array.
+     */
+    GridType provideGrid();
 
 private:
     GridType grid;

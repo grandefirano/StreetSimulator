@@ -12,7 +12,7 @@
 
 /**
  * @class Car
- * @brief Class that represents a car with its characteristics, internal state, position, and functionalities to move and check collisions.
+ * @brief Class that represents a car, that ride on the streets, with its characteristics, internal state, position, and functionalities to move and check collisions.
  */
 class Car : public Movable {
 public:
@@ -40,11 +40,6 @@ public:
     void move() override;
 
     /**
-     * @brief Getter of the Point position.
-     * @return Point position of a car.
-     */
-    Point getPosition() const;
-    /**
          * @brief Getter of the Field position.
          * @return Field position of a car.
          */
@@ -61,12 +56,6 @@ public:
      * @return Direction of a car on the end of its movement.
      */
     Direction getNextDirection() const;
-
-    /**
-     * @brief Getter of the upcoming Point positions of a car.
-     * @return Next Point positions on the way of the car, that car is going to drive through.
-     */
-    std::vector<Point> getNextPoints() const;
 
     /**
      * @brief Checks intersection and speed collisions with other cars and collisions with pedestrians near the crossings.

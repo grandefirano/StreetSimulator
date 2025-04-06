@@ -11,8 +11,8 @@ enum FieldValue {
      */
     FV_UP,
     /**
- * Road with direction down.
- */
+    * Road with direction down.
+    */
     FV_DOWN,
     /**
      * Road with direction left.

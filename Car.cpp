@@ -89,16 +89,8 @@ Direction Car::getNextDirection() const {
     return direction;
 }
 
-Point Car::getPosition() const {
-    return position;
-}
-
 Speed Car::getSpeed() const {
     return speed;
-}
-
-std::vector<Point> Car::getNextPoints() const {
-    return nextPoints;
 }
 
 bool Car::operator==(const Car &other) const {

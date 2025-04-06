@@ -13,7 +13,7 @@ bool shouldGeneratePedestrian(int count) {
 
 CrosswalkManager::CrosswalkManager(WorldMapManager *_worldMapManager) {
     worldMapManager = _worldMapManager;
-    spawns = worldMapManager->createPedestrianSpawns();
+    spawns = worldMapManager->providePedestrianSpawns();
 }
 
 void CrosswalkManager::nextFrame() {
