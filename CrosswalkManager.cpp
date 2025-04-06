@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-#include "DirectionDelta.h"
 #include "FieldHelper.h"
 #include "GlobalConstants.h"
 #include "WorldMapManager.h"

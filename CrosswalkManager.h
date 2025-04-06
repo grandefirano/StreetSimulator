@@ -5,7 +5,6 @@
 #include "Pedestrian.h"
 #include "WorldMapManager.h"
 
-
 class CrosswalkManager {
 private:
     int count;

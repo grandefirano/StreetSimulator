@@ -7,7 +7,7 @@
 
 class LightsIntersection : public Intersection {
 public:
-    LightsIntersection(LightsManager *_lightsManager);
+    LightsIntersection(LightsManager *_lightsManager,EdgeCollisionDetector *_edgeCollisionDetector);
 
     bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
 

@@ -8,11 +8,13 @@
 #include "EdgeCollisionHelper.h"
 #include "VectorHelper.h"
 
+UncontrolledIntersection::UncontrolledIntersection(EdgeCollisionDetector *_edgeCollisionDetector):Intersection(_edgeCollisionDetector) {}
+
 bool UncontrolledIntersection::canGo(Car &currentCar, Direction currentDirection,
                                      std::vector<Car> collidingCars) {
     bool hasCollision = false;
     for (auto &car: collidingCars) {
-        auto isEdgeCollision = checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
         if (isEdgeCollision) {
             if (!compareEqualPriority(currentCar, car, currentDirection)) {
                 hasCollision = true;

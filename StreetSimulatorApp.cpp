@@ -39,7 +39,8 @@ StreetSimulatorApp::StreetSimulatorApp() {
     auto *lightsManager = new LightsManager(worldGridProvider);
     auto *roadGenerator = new RoadGenerator(worldGridProvider);
     auto *worldMapManager = new WorldMapManager(worldGridProvider);
-    auto *collisionDetector = new CollisionDetector(lightsManager, worldMapManager);
+    auto *edgeCollisionDetector = new EdgeCollisionDetector();
+    auto *collisionDetector = new CollisionDetector(lightsManager, worldMapManager,edgeCollisionDetector);
     auto *crosswalkManager = new CrosswalkManager(worldMapManager);
     auto *carGenerator = new CarGenerator(roadGenerator, collisionDetector);
     StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view, roadGenerator, lightsManager, worldMapManager, crosswalkManager, carGenerator);

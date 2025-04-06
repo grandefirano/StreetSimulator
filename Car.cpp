@@ -8,7 +8,6 @@
 #include <random>
 
 #include "FieldHelper.h"
-#include "GlobalConstants.h"
 #include "Pedestrian.h"
 
 Car::Car(

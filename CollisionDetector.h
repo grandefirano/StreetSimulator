@@ -1,6 +1,7 @@
 
 #ifndef COLLISIONDETECTOR_H
 #define COLLISIONDETECTOR_H
+#include "EdgeCollisionDetector.h"
 #include "LightsManager.h"
 #include "Pedestrian.h"
 #include "WorldMapManager.h"
@@ -12,12 +13,13 @@ class PriorityIntersection;
 
 class CollisionDetector {
 public:
-    CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager);
+    CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector);
     bool checkIntersectionCollision(Car &currentCar,std::vector<Car> &cars);
     bool checkPedestrianCollision(Car &currentCar, std::vector<Pedestrian> &pedestrians);
 private:
     LightsManager *lightsManager;
     WorldMapManager *worldMapManager;
+    EdgeCollisionDetector *edgeCollisionDetector;
     LightsIntersection *lightsIntersection;
     UncontrolledIntersection *uncontrolledIntersection;
     PriorityIntersection *priorityIntersection;

@@ -67,6 +67,8 @@ add_executable(StreetSimulator main.cpp
         Crossing.h
         CarGenerator.cpp
         CarGenerator.h
+        EdgeCollisionDetector.cpp
+        EdgeCollisionDetector.h
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

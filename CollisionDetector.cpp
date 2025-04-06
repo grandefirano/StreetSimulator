@@ -1,11 +1,9 @@
 #include "CollisionDetector.h"
 
-#include <iostream>
 #include <vector>
 
 #include "Car.h"
 #include "DirectionMapper.h"
-#include "EdgeCollisionHelper.h"
 #include "FieldHelper.h"
 #include "FieldValue.h"
 #include "Intersection.h"
@@ -13,12 +11,13 @@
 #include "PriorityIntersection.h"
 #include "UncontrolledIntersection.h"
 
-CollisionDetector::CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager) {
+CollisionDetector::CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector) {
     worldMapManager = _worldMapManager;
     lightsManager = _lightsManager;
-    lightsIntersection = new LightsIntersection(lightsManager);
-    uncontrolledIntersection = new UncontrolledIntersection();
-    priorityIntersection = new PriorityIntersection(worldMapManager);
+    edgeCollisionDetector = _edgeCollisionDetector;
+    lightsIntersection = new LightsIntersection(lightsManager,_edgeCollisionDetector);
+    uncontrolledIntersection = new UncontrolledIntersection(_edgeCollisionDetector);
+    priorityIntersection = new PriorityIntersection(worldMapManager,_edgeCollisionDetector);
 }
 
 bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &cars) {
@@ -53,7 +52,7 @@ bool CollisionDetector::checkPedestrianCollision(Car &currentCar, std::vector<Pe
         auto isBeforeCrosswalk = frontFieldValue == FV_CROSSING;
         if (isBeforeCrosswalk) {
             for (auto &pedestrian: pedestrians) {
-                auto isEdgeCollision = checkEdgeCollision(
+                auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(
                     pedestrian.getNextPoints(),
                     currentCar.getNextPoints(),
                     FIELD_SCALE / 2

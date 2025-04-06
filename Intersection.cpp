@@ -6,6 +6,9 @@
 
 #include "DirectionMapper.h"
 
+Intersection::Intersection(EdgeCollisionDetector *_edgeCollisionDetector) {
+    edgeCollisionDetector = _edgeCollisionDetector;
+}
 
 Field Intersection::getIntersectionEntrance(Field field, const Direction &direction, Entrance entrance) {
     int rightFactor;

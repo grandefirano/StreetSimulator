@@ -4,15 +4,12 @@
 
 #include "PriorityIntersection.h"
 
-#include <iostream>
-#include <ostream>
-
 #include "DirectionMapper.h"
 #include "EdgeCollisionHelper.h"
 #include "FieldHelper.h"
 #include "VectorHelper.h"
 
-PriorityIntersection::PriorityIntersection(WorldMapManager *_worldMapManager) {
+PriorityIntersection::PriorityIntersection(WorldMapManager *_worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector):Intersection(_edgeCollisionDetector) {
     worldMapManager = _worldMapManager;
 }
 
@@ -22,7 +19,7 @@ bool PriorityIntersection::canGo(Car &currentCar, Direction currentDirection,
     auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(currentCar.getField(), currentDirection));
     auto isOnPriorityRoad = rightFieldValue == FV_PRIORITY_SIGN;
     for (auto &car: collidingCars) {
-        auto isEdgeCollision = checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
         if (isEdgeCollision) {
             auto intersection = getIntersectionFields(currentCar.getField(), currentDirection);
             if (contains<Field>(intersection, car.getField())) {

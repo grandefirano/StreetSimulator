@@ -10,6 +10,7 @@ class Car;
 
 class UncontrolledIntersection : public Intersection {
 public:
+    UncontrolledIntersection(EdgeCollisionDetector *_edgeCollisionDetector);
     bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
 
 private:

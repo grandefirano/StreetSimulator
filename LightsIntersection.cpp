@@ -5,14 +5,14 @@
 #include "FieldHelper.h"
 #include "VectorHelper.h"
 
-LightsIntersection::LightsIntersection(LightsManager *_lightsManager): lightsManager(_lightsManager) {
+LightsIntersection::LightsIntersection(LightsManager *_lightsManager,EdgeCollisionDetector *_edgeCollisionDetector):Intersection(_edgeCollisionDetector), lightsManager(_lightsManager) {
 }
 
 bool LightsIntersection::canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) {
     bool hasCollision = false;
     auto rightField = getOneRight(currentCar.getField(), currentDirection);
     for (auto car: collidingCars) {
-        auto isEdgeCollision = checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
         if (lightsManager->isGreenLight(rightField)) {
             if (isEdgeCollision) {
                 if (!compareLightsPriority(currentCar, car, currentDirection)) {

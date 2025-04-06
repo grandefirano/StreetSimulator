@@ -6,7 +6,7 @@
 
 class PriorityIntersection : public Intersection {
 public:
-    PriorityIntersection(WorldMapManager *worldMapManager);
+    PriorityIntersection(WorldMapManager *worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector);
     bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
 
 private:
