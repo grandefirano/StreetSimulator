@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include "Car.h"
+#include "CrosswalkManager.h"
 #include "WorldMapManager.h"
 
 std::vector<Car> getOtherCars(Car &car, std::vector<Car> &cars) {
@@ -39,12 +40,14 @@ StreetSimulatorPresenter::StreetSimulatorPresenter(
     RoadGenerator *_roadGenerator,
     LightsManager *_lightsManager,
     CollisionDetector *_collisionDetector,
-    WorldMapManager *_worldMapManager
+    WorldMapManager *_worldMapManager,
+    CrosswalkManager *_crosswalkManager
 ) {
     view = _view;
     roadGenerator = _roadGenerator;
     lightsManager = _lightsManager;
     collisionDetector = _collisionDetector;
+    crosswalkManager = _crosswalkManager;
     initPresenter(_worldMapManager);
 }
 
@@ -58,6 +61,7 @@ void StreetSimulatorPresenter::initPresenter(WorldMapManager *worldMapManager) {
 
 void StreetSimulatorPresenter::nextFrame() {
     lightsManager->setTime(timeCount);
+    crosswalkManager->nextFrame();
     for (auto &car: cars) {
         //TODO create remove by value
         auto others = getOtherCars(car, cars);
@@ -71,6 +75,7 @@ void StreetSimulatorPresenter::nextFrame() {
     view->drawCrossings(crossings);
     view->drawLights(lightsManager->getAllLights());
     view->drawSigns(signs);
+    view->drawPedestrians(crosswalkManager->getPedestrians());
     view->drawCars(cars);
     view->render();
     timeCount++;

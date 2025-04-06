@@ -104,7 +104,7 @@ std::vector<Field> findIntersectionOuts(int x, int y, GridType grid) {
 std::vector<Point> generateHorizontalLine(double y, double startX, double endX, int numPoints) {
     std::vector<Point> linePoints;
 
-    double step = (endX - startX) / (numPoints - 1); // Calculate step size
+    double step = (endX - startX) / (numPoints - 1);
 
     for (int i = 0; i < numPoints; i++) {
         double x = startX + i * step;
@@ -318,7 +318,6 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
     }
 }
 
-//TODO refactor this
 std::vector<RoadOption> RoadGenerator::createRoads() {
     std::vector<RoadOption> points;
     for (int y = 0; y < grid.size(); y++) {

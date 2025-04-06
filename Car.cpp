@@ -68,13 +68,6 @@ Direction Car::getNextDirection() {
     return direction;
 }
 
-
-float Car::getRotation() {
-    auto currentPoint = nextPoints.at(0);
-    auto nextPoint = nextPoints.at(2);
-    return atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x) * 180 / PI;
-}
-
 //TODO should be same as move and cars kept in some container
 void Car::checkSpeedCollision(std::vector<Car> cars) {
     auto newSpeed = maxSpeed;

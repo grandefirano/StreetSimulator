@@ -11,6 +11,7 @@ protected:
 
 public:
     virtual void move();
+    float getRotation();
 };
 
 #endif //MOVABLE_H

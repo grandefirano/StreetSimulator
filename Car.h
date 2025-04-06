@@ -9,7 +9,7 @@
 #include "Movable.h"
 #include "Speed.h"
 
-class Car :Movable {
+class Car : public Movable {
 public:
     explicit Car(int id, RoadGenerator *roadGenerator, CollisionDetector *_collisionDetector, Field field, Speed maxSpeed,
                  int patience);
@@ -19,8 +19,6 @@ public:
     Point getPosition();
 
     Field getField();
-
-    float getRotation();
 
     Speed getSpeed();
 

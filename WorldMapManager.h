@@ -13,6 +13,7 @@ class WorldMapManager {
 public:
     std::vector<Sign> createSigns();
     std::vector<Crossing> createCrossings();
+    std::vector<Field> createPedestrianSpawns();
     FieldValue takeFieldValue(Field field);
     WorldMapManager(WorldMapGridProvider *_worldMapGridProvider);
 private:

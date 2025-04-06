@@ -16,6 +16,9 @@
 CollisionDetector::CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager) {
     worldMapManager = _worldMapManager;
     lightsManager = _lightsManager;
+    lightsIntersection = new LightsIntersection(lightsManager);
+    uncontrolledIntersection = new UncontrolledIntersection();
+    priorityIntersection = new PriorityIntersection(worldMapManager);
 }
 
 bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &cars) {
@@ -26,11 +29,11 @@ bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &c
             Intersection *intersection;
             auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(car.getField(), currentDirection));
             if (rightFieldValue==FV_LIGHT) {
-                intersection = new LightsIntersection(lightsManager);
+                intersection =lightsIntersection;
             } else if (rightFieldValue == FV_PRIORITY_SIGN || rightFieldValue == FV_NO_PRIORITY_SIGN) {
-                intersection = new PriorityIntersection(worldMapManager);
+                intersection = priorityIntersection;
             } else {
-                intersection = new UncontrolledIntersection();
+                intersection = uncontrolledIntersection;
             }
             hasCollision = !intersection->canGo(car, currentDirection, cars);
         }

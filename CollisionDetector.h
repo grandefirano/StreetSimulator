@@ -1,11 +1,13 @@
 
 #ifndef COLLISIONDETECTOR_H
 #define COLLISIONDETECTOR_H
-#include "WorldMapGridProvider.h"
 #include "LightsManager.h"
 #include "WorldMapManager.h"
 
 class Car;
+class UncontrolledIntersection;
+class LightsIntersection;
+class PriorityIntersection;
 
 class CollisionDetector {
 public:
@@ -14,6 +16,9 @@ public:
 private:
     LightsManager *lightsManager;
     WorldMapManager *worldMapManager;
+    LightsIntersection *lightsIntersection;
+    UncontrolledIntersection *uncontrolledIntersection;
+    PriorityIntersection *priorityIntersection;
 };
 
 #endif //COLLISIONDETECTOR_H

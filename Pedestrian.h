@@ -8,6 +8,7 @@ class Pedestrian : public Movable {
 public:
     Pedestrian(std::vector<Point> allPoints, Speed speed, Field field);
     Field getField();
+    Point getPosition();
     std::vector<Point> getNextPoints();
 };
 

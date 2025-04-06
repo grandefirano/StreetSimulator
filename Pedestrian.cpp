@@ -16,3 +16,7 @@ std::vector<Point> Pedestrian::getNextPoints() {
 Field Pedestrian::getField() {
     return mapToField(position);
 }
+
+Point Pedestrian::getPosition() {
+    return position;
+}

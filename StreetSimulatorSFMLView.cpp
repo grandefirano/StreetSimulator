@@ -35,6 +35,9 @@ void StreetSimulatorSFMLView::loadTextures() {
     if (!crossingTexture.loadFromFile("textures/crossing_img.png")) {
         std::cerr << "Error loading priority crossing texture";
     }
+    if (!pedestrianTexture.loadFromFile("textures/pedestrian.png")) {
+        std::cerr << "Error loading priority pedestrian texture";
+    }
 }
 
 sf::VertexArray createThickLineStrip(const std::vector<sf::Vector2f> &points, float thickness, sf::Color color) {
@@ -67,7 +70,7 @@ sf::VertexArray createThickLineStrip(const std::vector<sf::Vector2f> &points, fl
     return thickLine;
 }
 
-void StreetSimulatorSFMLView::loadRoads(const std::vector<RoadOption> mapRoads) {
+void StreetSimulatorSFMLView::loadRoads(const std::vector<RoadOption> &mapRoads) {
     for (int z = 0; z < mapRoads.size(); z++) {
         std::vector<sf::Vertex> road;
         std::vector<sf::Vector2f> vectorRoad;
@@ -116,7 +119,7 @@ void StreetSimulatorSFMLView::drawBackground(const int xFieldSize, const int yFi
     }
 }
 
-void StreetSimulatorSFMLView::drawCars(std::vector<Car> cars) {
+void StreetSimulatorSFMLView::drawCars(const std::vector<Car> &cars) {
     for (auto car: cars) {
         auto carPosition = car.getPosition();
         auto vectorCar = sf::Vector2f(carPosition.x + X_START, carPosition.y + Y_START);
@@ -132,8 +135,8 @@ void StreetSimulatorSFMLView::render() {
     window->display();
 }
 
-void StreetSimulatorSFMLView::drawLights(std::vector<Light> lights) {
-    for (auto light: lights) {
+void StreetSimulatorSFMLView::drawLights(const std::vector<Light> &lights) {
+    for (const auto &light: lights) {
         sf::Vector2u textureSize = redLightTexture.getSize();
         auto vectorLight = sf::Vector2f(light.field.x * SCALE + X_START - textureSize.x / 2,
                                         light.field.y * SCALE + Y_START - textureSize.y / 2);
@@ -148,9 +151,9 @@ void StreetSimulatorSFMLView::drawLights(std::vector<Light> lights) {
     }
 }
 
-void StreetSimulatorSFMLView::drawSigns(std::vector<Sign> signs) {
-    for (auto sign: signs) {
-        sf::Texture texture;
+void StreetSimulatorSFMLView::drawSigns(const std::vector<Sign> &signs) {
+    sf::Texture texture;
+    for (const auto &sign: signs) {
         if (sign.type == PRIORITY) {
             texture = prioritySignTexture;
         }
@@ -167,19 +170,31 @@ void StreetSimulatorSFMLView::drawSigns(std::vector<Sign> signs) {
     }
 }
 
-void StreetSimulatorSFMLView::drawCrossings(std::vector<Crossing> crossings) {
-    for (auto crossing : crossings) {
-        auto texture = crossingTexture;
-        sf::Vector2u textureSize = texture.getSize();
+void StreetSimulatorSFMLView::drawCrossings(const std::vector<Crossing> &crossings) {
+    for (const auto &crossing : crossings) {
+        sf::Vector2u textureSize = crossingTexture.getSize();
         auto vectorCrossing = sf::Vector2f(crossing.field.x * SCALE + X_START,
                                         crossing.field.y * SCALE + Y_START);
-        sf::Sprite sprite(texture);
+        sf::Sprite sprite(crossingTexture);
         sprite.setPosition(vectorCrossing);
         sprite.setOrigin(sf::Vector2f(textureSize.x /2 , textureSize.y /2));
         if (crossing.isHorizontal) {
             sprite.setRotation(sf::degrees(90));
         }
-        sprite.setTexture(texture);
+        sprite.setTexture(crossingTexture);
+        window->draw(sprite);
+    }
+}
+
+void StreetSimulatorSFMLView::drawPedestrians(const std::vector<Pedestrian> &pedestrians) {
+    for (auto pedestrian: pedestrians) {
+        sf::Vector2u textureSize = pedestrianTexture.getSize();
+        auto vectorPedestrian = sf::Vector2f(pedestrian.getPosition().x -0.5 *M_SCALE+ X_START,pedestrian.getPosition().y-0.5 *M_SCALE+ Y_START);
+        sf::Sprite sprite(pedestrianTexture);
+        sprite.setPosition(vectorPedestrian);
+        sprite.setOrigin(sf::Vector2f(textureSize.x /2 , textureSize.y /2));
+        sprite.setRotation(sf::degrees(pedestrian.getRotation()));
+        sprite.setTexture(pedestrianTexture);
         window->draw(sprite);
     }
 }

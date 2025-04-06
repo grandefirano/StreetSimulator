@@ -21,6 +21,21 @@ std::vector<Sign> WorldMapManager::createSigns() {
     return signs;
 }
 
+std::vector<Field> WorldMapManager::createPedestrianSpawns() {
+    //TODO caching grid
+    auto grid = worldMapGridProvider->provideGrid();
+    std::vector<Field> spawns;
+    for (int y = 0; y < grid.size(); y++) {
+        for (int x = 0; x < grid[y].size(); x++) {
+            auto fieldValue = takeFieldValue(Field(x,y));
+            if (fieldValue==FV_PEDESTRIAN_SPAWN) {
+                spawns.push_back(Field(x, y));
+            }
+        }
+    }
+    return spawns;
+}
+
 std::vector<Crossing> WorldMapManager::createCrossings() {
     //TODO caching grid
     auto grid = worldMapGridProvider->provideGrid();
