@@ -20,13 +20,13 @@ CollisionDetector::CollisionDetector(LightsManager *_lightsManager, WorldMapMana
     priorityIntersection = new PriorityIntersection(worldMapManager,_edgeCollisionDetector);
 }
 
-bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &cars) {
+bool CollisionDetector::checkIntersectionCollision(const Car &currentCar, const std::vector<Car> &cars) {
     bool hasCollision = false;
     try {
-        auto currentDirection = DirectionMapper::parseToDirection(worldMapManager->takeFieldValue(car.getField()));
-        if (worldMapManager->takeFieldValue(getOneFront(car.getField(), currentDirection)) == FV_INTERSECTION) {
+        auto currentDirection = DirectionMapper::parseToDirection(worldMapManager->takeFieldValue(currentCar.getField()));
+        if (worldMapManager->takeFieldValue(getOneFront(currentCar.getField(), currentDirection)) == FV_INTERSECTION) {
             Intersection *intersection;
-            auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(car.getField(), currentDirection));
+            auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(currentCar.getField(), currentDirection));
             if (rightFieldValue == FV_LIGHT) {
                 intersection = lightsIntersection;
             } else if (rightFieldValue == FV_PRIORITY_SIGN || rightFieldValue == FV_NO_PRIORITY_SIGN) {
@@ -34,7 +34,7 @@ bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &c
             } else {
                 intersection = uncontrolledIntersection;
             }
-            hasCollision = !intersection->canGo(car, currentDirection, cars);
+            hasCollision = !intersection->canGo(currentCar, currentDirection, cars);
         }
     } catch (DirectionException directionException) {
         // the car is on the intersection
@@ -43,7 +43,7 @@ bool CollisionDetector::checkIntersectionCollision(Car &car, std::vector<Car> &c
     return hasCollision;
 }
 
-bool CollisionDetector::checkPedestrianCollision(Car &currentCar, std::vector<Pedestrian> &pedestrians) {
+bool CollisionDetector::checkPedestrianCollision(const Car &currentCar, const std::vector<Pedestrian> &pedestrians) {
     bool hasCollision = false;
     try {
         auto currentDirection = DirectionMapper::parseToDirection(

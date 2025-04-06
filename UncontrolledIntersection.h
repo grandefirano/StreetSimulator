@@ -4,17 +4,16 @@
 #include <vector>
 
 #include "Intersection.h"
-#include "Point.h"
 
 class Car;
 
 class UncontrolledIntersection : public Intersection {
 public:
     UncontrolledIntersection(EdgeCollisionDetector *_edgeCollisionDetector);
-    bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
+    bool canGo(const Car &currentCar,const Direction &currentDirection, const std::vector<Car> &collidingCars) override;
 
 private:
-    bool compareEqualPriority(Car &currentCar, Car &car, const Direction &currentDirection);
+    bool compareEqualPriority(const Car &currentCar,const Car &car, const Direction &currentDirection);
 };
 
 

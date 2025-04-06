@@ -14,8 +14,8 @@ class PriorityIntersection;
 class CollisionDetector {
 public:
     CollisionDetector(LightsManager *_lightsManager, WorldMapManager *_worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector);
-    bool checkIntersectionCollision(Car &currentCar,std::vector<Car> &cars);
-    bool checkPedestrianCollision(Car &currentCar, std::vector<Pedestrian> &pedestrians);
+    bool checkIntersectionCollision(const Car &currentCar, const std::vector<Car> &cars);
+    bool checkPedestrianCollision(const Car &currentCar,const std::vector<Pedestrian> &pedestrians);
 private:
     LightsManager *lightsManager;
     WorldMapManager *worldMapManager;

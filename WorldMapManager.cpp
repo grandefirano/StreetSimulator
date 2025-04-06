@@ -4,7 +4,6 @@
 #include "FieldValue.h"
 
 std::vector<Sign> WorldMapManager::createSigns() {
-    //TODO caching grid
     auto grid = worldMapGridProvider->provideGrid();
     std::vector<Sign> signs;
     for (int y = 0; y < grid.size(); y++) {
@@ -22,7 +21,6 @@ std::vector<Sign> WorldMapManager::createSigns() {
 }
 
 std::vector<Field> WorldMapManager::createPedestrianSpawns() {
-    //TODO caching grid
     auto grid = worldMapGridProvider->provideGrid();
     std::vector<Field> spawns;
     for (int y = 0; y < grid.size(); y++) {
@@ -37,7 +35,6 @@ std::vector<Field> WorldMapManager::createPedestrianSpawns() {
 }
 
 std::vector<Crossing> WorldMapManager::createCrossings() {
-    //TODO caching grid
     auto grid = worldMapGridProvider->provideGrid();
     std::vector<Crossing> crossings;
     for (int y = 0; y < grid.size(); y++) {
@@ -53,7 +50,7 @@ std::vector<Crossing> WorldMapManager::createCrossings() {
     return crossings;
 }
 
-FieldValue WorldMapManager::takeFieldValue(Field field) {
+FieldValue WorldMapManager::takeFieldValue(const Field &field) {
     auto grid = worldMapGridProvider->provideGrid();
     if (field.y < grid.size() && field.x < grid[field.y].size()) {
         return mapToFieldValue(grid[field.y][field.x]);

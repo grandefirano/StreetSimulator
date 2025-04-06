@@ -9,7 +9,7 @@ class CarGenerator {
 public:
     CarGenerator(RoadGenerator *_roadGenerator, CollisionDetector *_collisionDetector);
 
-    std::vector<Car> generateCars();
+    std::vector<Car> generateCars() const;
 
 private:
     RoadGenerator *roadGenerator;

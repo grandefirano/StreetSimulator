@@ -5,7 +5,7 @@ CarGenerator::CarGenerator(RoadGenerator *_roadGenerator, CollisionDetector *_co
     collisionDetector = _collisionDetector;
 }
 
-std::vector<Car> CarGenerator::generateCars() {
+std::vector<Car> CarGenerator::generateCars() const {
     Car carBottom = Car(1, roadGenerator, collisionDetector, Field(13, 11), NORMAL, 101);
     Car carTop = Car(6, roadGenerator, collisionDetector, Field(12, 4), NORMAL, 101);
     Car carLeft = Car(2, roadGenerator, collisionDetector, Field(9, 9), NORMAL, 102);

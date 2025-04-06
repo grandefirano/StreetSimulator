@@ -6,13 +6,13 @@
 
 class Intersection {
 public:
-    virtual bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) =0;
+    virtual bool canGo(const Car &currentCar, const Direction &currentDirection,const std::vector<Car> &collidingCars) =0;
 protected:
     EdgeCollisionDetector *edgeCollisionDetector;
     enum Entrance {ENTR_STRAIGHT,ENTR_LEFT,ENTR_RIGHT};
     Intersection(EdgeCollisionDetector *_edgeCollisionDetector);
-    Field getIntersectionEntrance(Field field, const Direction &direction, Entrance entrance);
-    std::vector<Field> getIntersectionFields(Field field, const Direction &direction);
+    Field getIntersectionEntrance(const Field &field, const Direction &direction,const Entrance &entrance);
+    std::vector<Field> getIntersectionFields(const Field &field, const Direction &direction);
 };
 
 #endif //INTERSECTION_H

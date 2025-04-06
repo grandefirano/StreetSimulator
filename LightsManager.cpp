@@ -45,7 +45,7 @@ void LightsManager::findIntersectionLights(const GridType &grid) {
     }
 }
 
-bool LightsManager::isGreenLight(Field &field) {
+bool LightsManager::isGreenLight(const Field &field) {
     auto count = time/20 % 12;
     if (contains(group1,field)) {
         return (count>=6 && count<=9);

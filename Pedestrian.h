@@ -6,10 +6,10 @@
 
 class Pedestrian : public Movable {
 public:
-    Pedestrian(std::vector<Point> allPoints, Speed speed, Field field);
-    Field getField();
-    Point getPosition();
-    std::vector<Point> getNextPoints();
+    Pedestrian(const std::vector<Point> &allPoints,const Speed &_speed, const Field &field);
+    Field getField() const;
+    Point getPosition() const;
+    std::vector<Point> getNextPoints() const;
 };
 
 #endif //PEDESTRIAN_H

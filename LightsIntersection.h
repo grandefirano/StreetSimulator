@@ -9,12 +9,12 @@ class LightsIntersection : public Intersection {
 public:
     LightsIntersection(LightsManager *_lightsManager,EdgeCollisionDetector *_edgeCollisionDetector);
 
-    bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
+    bool canGo(const Car &currentCar,const  Direction &currentDirection,const  std::vector<Car> &collidingCars) override;
 
 private:
     LightsManager *lightsManager;
 
-    bool compareLightsPriority(Car currentCar, Car car, Direction &currentDirection);
+    bool compareLightsPriority(const Car &currentCar, const Car &car,const Direction &currentDirection);
 };
 
 #endif //LIGHTSINTERSECTION_H

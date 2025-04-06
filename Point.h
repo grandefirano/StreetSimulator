@@ -5,10 +5,6 @@
 #ifndef POINT_H
 #define POINT_H
 
-#include <vector>
-#include <bits/streambuf_iterator.h>
-
-
 struct Point {
     double x, y;
 

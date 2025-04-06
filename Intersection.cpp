@@ -10,7 +10,7 @@ Intersection::Intersection(EdgeCollisionDetector *_edgeCollisionDetector) {
     edgeCollisionDetector = _edgeCollisionDetector;
 }
 
-Field Intersection::getIntersectionEntrance(Field field, const Direction &direction, Entrance entrance) {
+Field Intersection::getIntersectionEntrance(const Field &field, const Direction &direction, const Entrance &entrance) {
     int rightFactor;
     int frontFactor;
     switch (entrance) {
@@ -37,7 +37,7 @@ Field Intersection::getIntersectionEntrance(Field field, const Direction &direct
     );
 }
 
-std::vector<Field> Intersection::getIntersectionFields(Field field, const Direction &direction) {
+std::vector<Field> Intersection::getIntersectionFields(const Field &field, const Direction &direction) {
     std::vector<Field> intersection;
     auto frontDirection = DirectionMapper::parseToFrontDirectionDelta(direction);
     auto rightDirection = DirectionMapper::parseToRightDirectionDelta(direction);

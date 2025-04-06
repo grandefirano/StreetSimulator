@@ -23,17 +23,17 @@ public:
 
     void move() override;
 
-    Point getPosition();
+    Point getPosition() const;
 
-    Field getField();
+    Field getField() const;
 
-    Speed getSpeed();
+    Speed getSpeed() const;
 
-    Direction getNextDirection();
+    Direction getNextDirection() const;
 
-    std::vector<Point> getNextPoints();
+    std::vector<Point> getNextPoints() const;
 
-    void checkCollision(std::vector<Car> cars, std::vector<Pedestrian> pedestrians);
+    void checkCollision(const std::vector<Car> &cars, const std::vector<Pedestrian> &pedestrians);
 
     bool operator==(const Car &other) const;
 

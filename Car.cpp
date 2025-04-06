@@ -42,7 +42,7 @@ void Car::chooseNextRoad() {
     }
 }
 
-void Car::checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians) {
+void Car::checkCollision(const std::vector<Car> &cars, const std::vector<Pedestrian> &pedestrians) {
     checkSpeedCollision(cars);
     if (collisionDetector->checkPedestrianCollision(*this,pedestrians)) {
         speed = STOP;
@@ -81,23 +81,23 @@ void Car::move() {
     }
 }
 
-Field Car::getField() {
+Field Car::getField() const {
     return field;
 }
 
-Direction Car::getNextDirection() {
+Direction Car::getNextDirection() const {
     return direction;
 }
 
-Point Car::getPosition() {
+Point Car::getPosition() const {
     return position;
 }
 
-Speed Car::getSpeed() {
+Speed Car::getSpeed() const {
     return speed;
 }
 
-std::vector<Point> Car::getNextPoints() {
+std::vector<Point> Car::getNextPoints() const {
     return nextPoints;
 }
 

@@ -7,12 +7,12 @@
 class PriorityIntersection : public Intersection {
 public:
     PriorityIntersection(WorldMapManager *worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector);
-    bool canGo(Car &currentCar, Direction currentDirection, std::vector<Car> collidingCars) override;
+    bool canGo(const Car &currentCar,const Direction &currentDirection,const std::vector<Car> &collidingCars) override;
 
 private:
     WorldMapManager *worldMapManager;
-    bool compareOnPriority(Car &currentCar, Car &car, const Direction &currentDirection);
-    bool compareWithoutPriority(Car &currentCar, Car &car, const Direction &currentDirection);
+    bool compareOnPriority(const Car &currentCar,const Car &otherCar, const Direction &currentDirection);
+    bool compareWithoutPriority(const Car &currentCar,const Car &otherCar, const Direction &currentDirection);
 };
 
 

@@ -43,7 +43,6 @@ add_executable(StreetSimulator main.cpp
         Light.h
         CollisionDetector.cpp
         CollisionDetector.h
-        EdgeCollisionHelper.h
         Intersection.h
         Intersection.cpp
         LightsIntersection.cpp

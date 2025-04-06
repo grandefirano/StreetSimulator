@@ -8,15 +8,12 @@
 #include "Speed.h"
 
 void Movable::move() {
-    if (nextPoints.size() == 0) {
-        std::cout << "No upcoming points" << std::endl;
-    } else if (speed == STOP) {
+    if (nextPoints.size() == 0 || speed == STOP) {
         //do nothing
     } else if (speed == SLOW) {
         position = nextPoints.front();
         nextPoints.erase(nextPoints.begin());
     } else if (speed == NORMAL) {
-        std::cout << "walk normal"<<nextPoints.front().y << std::endl;
         position = nextPoints.front();
         nextPoints.erase(nextPoints.begin(), nextPoints.begin() + 2);
     } else if (speed == FAST) {

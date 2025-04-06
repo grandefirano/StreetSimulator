@@ -1,6 +1,8 @@
 
 #ifndef EDGECOLLISIONDETECTOR_H
 #define EDGECOLLISIONDETECTOR_H
+#include <vector>
+
 #include "Point.h"
 
 class EdgeCollisionDetector {

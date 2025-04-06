@@ -15,7 +15,9 @@
 #include "GlobalConstants.h"
 #include "WorldMapGridProvider.h"
 
-inline FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
+RoadGenerator::RoadGenerator(WorldMapGridProvider *_worldMapGridProvider) : grid(_worldMapGridProvider->provideGrid()) {}
+
+FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
     if (y < grid.size() && x < grid[y].size()) {
         return mapToFieldValue(grid[y][x]);
     }
@@ -248,7 +250,7 @@ std::vector<RoadOption> RoadGenerator::generateIntersectionRight(int x, int y) {
     return points;
 }
 
-std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Direction direction) {
+std::vector<RoadOption> RoadGenerator::createRoadPossibilities(const Field &field, const Direction &direction) {
     char nextField;
     char fieldValue = takeFieldValue(field.x, field.y, grid);
     switch (fieldValue) {
@@ -382,5 +384,3 @@ std::vector<RoadOption> RoadGenerator::createRoads() {
     return points;
 }
 
-RoadGenerator::RoadGenerator(WorldMapGridProvider *_worldMapGridProvider) : grid(_worldMapGridProvider->provideGrid()) {
-}

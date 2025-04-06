@@ -1,5 +1,7 @@
 #ifndef MOVABLE_H
 #define MOVABLE_H
+#include <vector>
+
 #include "Point.h"
 #include "Speed.h"
 

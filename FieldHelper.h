@@ -9,30 +9,30 @@
 #include "Direction.h"
 #include <math.h>
 
-inline Field mapToField(Point point) {
+inline Field mapToField(const Point &point) {
     int x = std::ceil(point.x / FIELD_SCALE - 0.5);
     int y = std::ceil(point.y / FIELD_SCALE - 0.5);
     return Field(x, y);
 }
 
-inline Point getCenterPoint(Field field) {
+inline Point getCenterPoint(const Field &field) {
     int x = (field.x + 0.5) * FIELD_SCALE;
     int y = (field.y + 0.5) * FIELD_SCALE;
     return Point(x, y);
 }
 
-inline Field getOneFrontOneRight(Field field, const Direction &direction) {
+inline Field getOneFrontOneRight(const Field &field, const Direction &direction) {
     auto frontDirection = DirectionMapper::parseToFrontDirectionDelta(direction);
     auto rightDirection = DirectionMapper::parseToRightDirectionDelta(direction);
     return Field(field.x + frontDirection.x + rightDirection.x, field.y + frontDirection.y + rightDirection.y);
 }
 
-inline Field getOneFront(Field field, const Direction &direction) {
+inline Field getOneFront(const Field &field, const Direction &direction) {
     auto frontDirection = DirectionMapper::parseToFrontDirectionDelta(direction);
     return Field(field.x + frontDirection.x, field.y + frontDirection.y);
 }
 
-inline Field getOneRight(Field field, const Direction &direction) {
+inline Field getOneRight(const Field &field, const Direction &direction) {
     auto rightDirection = DirectionMapper::parseToRightDirectionDelta(direction);
     return Field(field.x + rightDirection.x, field.y + rightDirection.y);
 }

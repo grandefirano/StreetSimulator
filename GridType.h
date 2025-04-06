@@ -2,6 +2,8 @@
 #ifndef GRIDTYPE_H
 #define GRIDTYPE_H
 
+#include <string>
+
 static constexpr int GRID_ROWS = 23;
 static constexpr int GRID_COLUMNS = 25;
 

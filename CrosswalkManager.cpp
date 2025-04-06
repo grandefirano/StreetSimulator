@@ -30,7 +30,7 @@ void CrosswalkManager::nextFrame() {
     count++;
 }
 
-std::vector<Point> generateVerticalLineBetweenFields(Field startField, Field endField, int numPoints) {
+std::vector<Point> generateVerticalLineBetweenFields(const Field &startField, const Field &endField, const int numPoints) {
     std::vector<Point> linePoints;
     auto startPoint = getCenterPoint(startField);
     auto endPoint = getCenterPoint(endField);
@@ -43,7 +43,7 @@ std::vector<Point> generateVerticalLineBetweenFields(Field startField, Field end
     return linePoints;
 }
 
-std::vector<Point> generateHorizontalLineBetweenFields(Field startField, Field endField, int numPoints) {
+std::vector<Point> generateHorizontalLineBetweenFields(const Field &startField,const Field &endField, int numPoints) {
     std::vector<Point> linePoints;
     auto startPoint = getCenterPoint(startField);
     auto endPoint = getCenterPoint(endField);

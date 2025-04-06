@@ -11,11 +11,11 @@
 
 class WorldMapManager {
 public:
+    WorldMapManager(WorldMapGridProvider *_worldMapGridProvider);
     std::vector<Sign> createSigns();
     std::vector<Crossing> createCrossings();
     std::vector<Field> createPedestrianSpawns();
-    FieldValue takeFieldValue(Field field);
-    WorldMapManager(WorldMapGridProvider *_worldMapGridProvider);
+    FieldValue takeFieldValue(const Field &field);
 private:
     WorldMapGridProvider *worldMapGridProvider;
 };

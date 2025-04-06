@@ -5,11 +5,8 @@
 #ifndef ROADGENERATOR_H
 #define ROADGENERATOR_H
 
-#include <array>
-#include <string>
 #include <vector>
 
-#include "Point.h"
 #include "Field.h"
 #include "GridType.h"
 #include "RoadOption.h"
@@ -19,7 +16,7 @@ class RoadGenerator {
 public:
    RoadGenerator(WorldMapGridProvider *_worldMapGridProvider);
    std::vector<RoadOption> createRoads();
-   std::vector<RoadOption> createRoadPossibilities(Field field,Direction direction);
+   std::vector<RoadOption> createRoadPossibilities(const Field &field, const Direction &direction);
 
 private:
    GridType grid;

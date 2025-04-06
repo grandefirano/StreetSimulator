@@ -1,20 +1,21 @@
 
 #include "UncontrolledIntersection.h"
 
-#include <iostream>
-
 #include "Car.h"
 #include "DirectionMapper.h"
-#include "EdgeCollisionHelper.h"
+#include "GlobalConstants.h"
 #include "VectorHelper.h"
 
 UncontrolledIntersection::UncontrolledIntersection(EdgeCollisionDetector *_edgeCollisionDetector):Intersection(_edgeCollisionDetector) {}
 
-bool UncontrolledIntersection::canGo(Car &currentCar, Direction currentDirection,
-                                     std::vector<Car> collidingCars) {
+bool UncontrolledIntersection::canGo(
+    const Car &currentCar,
+    const Direction &currentDirection,
+    const std::vector<Car> &collidingCars
+    ) {
     bool hasCollision = false;
     for (auto &car: collidingCars) {
-        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
+        auto isEdgeCollision = edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 3);
         if (isEdgeCollision) {
             if (!compareEqualPriority(currentCar, car, currentDirection)) {
                 hasCollision = true;
@@ -24,7 +25,7 @@ bool UncontrolledIntersection::canGo(Car &currentCar, Direction currentDirection
     return !hasCollision;
 }
 
-bool UncontrolledIntersection::compareEqualPriority(Car &currentCar, Car &car, const Direction &currentDirection) {
+bool UncontrolledIntersection::compareEqualPriority(const Car &currentCar,const Car &car, const Direction &currentDirection) {
     auto field = currentCar.getField();
     auto onTheRight = getIntersectionEntrance(field, currentDirection, ENTR_RIGHT);
     auto inFront = getIntersectionEntrance(field, currentDirection, ENTR_STRAIGHT);

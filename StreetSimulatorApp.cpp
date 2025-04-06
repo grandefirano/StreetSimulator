@@ -22,19 +22,7 @@ StreetSimulatorApp::StreetSimulatorApp() {
     //injecting dependencies to classes manually, written in a manner that dependency injection can be easily applied in a future
     auto window = new sf::RenderWindow(sf::VideoMode({1920u, 1080u}), APP_WINDOW_TITLE);
     StreetSimulatorView *view = new StreetSimulatorSFMLView(window);
-    auto sp = Speed::FAST>Speed::SLOW;
-    auto sp1 = Speed::FAST>Speed::NORMAL;
-    auto sp2 = Speed::NORMAL>Speed::SLOW;
-    auto sp3 = Speed::NORMAL>Speed::STOP;
-    auto sp4 = Speed::SLOW>Speed::STOP;
-    auto sp5 = Speed::NORMAL>Speed::FAST;
 
-    std::cout<<"DDDDD "<<sp;
-    std::cout<<"DDDDD "<<sp1;
-    std::cout<<"DDDDD "<<sp2;
-    std::cout<<"DDDDD "<<sp3;
-    std::cout<<"DDDDD "<<sp4;
-    std::cout<<"DDDDD "<<sp5;
     auto *worldGridProvider = new WorldMapGridProvider(GRID_MAP_FILENAME);
     auto *lightsManager = new LightsManager(worldGridProvider);
     auto *roadGenerator = new RoadGenerator(worldGridProvider);

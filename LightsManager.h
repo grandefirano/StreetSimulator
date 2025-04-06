@@ -8,7 +8,7 @@
 class LightsManager {
 public:
     LightsManager(WorldMapGridProvider *_worldMapGridProvider);
-    bool isGreenLight(Field &field);
+    bool isGreenLight(const Field &field);
     std::vector<Light> getAllLights();
     void setTime(int time);
 private:

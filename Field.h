@@ -1,6 +1,3 @@
-//
-// Created by User on 2025-04-05.
-//
 
 #ifndef FIELD_H
 #define FIELD_H
