@@ -9,6 +9,7 @@
 
 #include "FieldHelper.h"
 #include "GlobalConstants.h"
+#include "Pedestrian.h"
 
 void Car::chooseNextRoad() {
     auto possibilities = roadGenerator->createRoadPossibilities(field, direction);
@@ -47,8 +48,11 @@ std::vector<Point> Car::getNextPoints() {
     return nextPoints;
 }
 
-void Car::checkCollision(std::vector<Car> cars) {
+void Car::checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians) {
     checkSpeedCollision(cars);
+    if (collisionDetector->checkPedestrianCollision(*this,pedestrians)) {
+        speed = STOP;
+    }
     if (collisionDetector->checkIntersectionCollision(*this, cars)) {
         speed = STOP;
         waitingTime++;

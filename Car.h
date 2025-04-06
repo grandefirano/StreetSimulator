@@ -7,6 +7,7 @@
 #include "RoadGenerator.h"
 #include "CollisionDetector.h"
 #include "Movable.h"
+#include "Pedestrian.h"
 #include "Speed.h"
 
 class Car : public Movable {
@@ -26,7 +27,7 @@ public:
 
     std::vector<Point> getNextPoints();
 
-    void checkCollision(std::vector<Car> cars);
+    void checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians);
 
     bool operator==(const Car &other) const;
 

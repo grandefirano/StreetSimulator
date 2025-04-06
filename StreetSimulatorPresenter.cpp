@@ -62,10 +62,11 @@ void StreetSimulatorPresenter::initPresenter(WorldMapManager *worldMapManager) {
 void StreetSimulatorPresenter::nextFrame() {
     lightsManager->setTime(timeCount);
     crosswalkManager->nextFrame();
+    auto pedestrians =crosswalkManager->getPedestrians();
     for (auto &car: cars) {
         //TODO create remove by value
         auto others = getOtherCars(car, cars);
-        car.checkCollision(others);
+        car.checkCollision(others,pedestrians);
         car.move();
     }
     view->clear();
@@ -74,7 +75,7 @@ void StreetSimulatorPresenter::nextFrame() {
     view->drawCrossings(crossings);
     view->drawLights(lightsManager->getAllLights());
     view->drawSigns(signs);
-    view->drawPedestrians(crosswalkManager->getPedestrians());
+    view->drawPedestrians(pedestrians);
     view->drawCars(cars);
     view->render();
     timeCount++;
