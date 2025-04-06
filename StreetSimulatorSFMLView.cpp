@@ -11,7 +11,6 @@
 const auto X_START = 500;
 const auto Y_START = 100;
 //TODO only one scale
-const auto SCALE = 31;
 
 void StreetSimulatorSFMLView::loadTextures() {
     if (!redLightTexture.loadFromFile("textures/ic-red-light.png")) {
@@ -111,7 +110,7 @@ void StreetSimulatorSFMLView::clear() {
 void StreetSimulatorSFMLView::drawBackground(const int xFieldSize, const int yFieldSize) {
     for (int y = 0; y < yFieldSize; y++) {
         for (int x = 0; x < xFieldSize; x++) {
-            auto vectorBackground = sf::Vector2f((x - 0.5) * SCALE + X_START, (y - 0.5) * SCALE + Y_START);
+            auto vectorBackground = sf::Vector2f((x - 0.5) * M_SCALE + X_START, (y - 0.5) * M_SCALE + Y_START);
             sf::Sprite sprite(grassTexture);
             sprite.setPosition(vectorBackground);
             window->draw(sprite);
@@ -138,8 +137,8 @@ void StreetSimulatorSFMLView::render() {
 void StreetSimulatorSFMLView::drawLights(const std::vector<Light> &lights) {
     for (const auto &light: lights) {
         sf::Vector2u textureSize = redLightTexture.getSize();
-        auto vectorLight = sf::Vector2f(light.field.x * SCALE + X_START - textureSize.x / 2,
-                                        light.field.y * SCALE + Y_START - textureSize.y / 2);
+        auto vectorLight = sf::Vector2f(light.field.x * M_SCALE + X_START - textureSize.x / 2,
+                                        light.field.y * M_SCALE + Y_START - textureSize.y / 2);
         sf::Sprite sprite(redLightTexture);
         sprite.setPosition(vectorLight);
         if (light.isGreen) {
@@ -161,8 +160,8 @@ void StreetSimulatorSFMLView::drawSigns(const std::vector<Sign> &signs) {
             texture = noPrioritySignTexture;
         }
         sf::Vector2u textureSize = texture.getSize();
-        auto vectorSign = sf::Vector2f(sign.field.x * SCALE + X_START - textureSize.x / 2,
-                                        sign.field.y * SCALE + Y_START - textureSize.y / 2);
+        auto vectorSign = sf::Vector2f(sign.field.x * M_SCALE + X_START - textureSize.x / 2,
+                                        sign.field.y * M_SCALE + Y_START - textureSize.y / 2);
         sf::Sprite sprite(texture);
         sprite.setPosition(vectorSign);
         sprite.setTexture(texture);
@@ -173,8 +172,8 @@ void StreetSimulatorSFMLView::drawSigns(const std::vector<Sign> &signs) {
 void StreetSimulatorSFMLView::drawCrossings(const std::vector<Crossing> &crossings) {
     for (const auto &crossing : crossings) {
         sf::Vector2u textureSize = crossingTexture.getSize();
-        auto vectorCrossing = sf::Vector2f(crossing.field.x * SCALE + X_START,
-                                        crossing.field.y * SCALE + Y_START);
+        auto vectorCrossing = sf::Vector2f(crossing.field.x * M_SCALE + X_START,
+                                        crossing.field.y * M_SCALE + Y_START);
         sf::Sprite sprite(crossingTexture);
         sprite.setPosition(vectorCrossing);
         sprite.setOrigin(sf::Vector2f(textureSize.x /2 , textureSize.y /2));

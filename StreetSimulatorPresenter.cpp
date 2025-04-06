@@ -69,7 +69,6 @@ void StreetSimulatorPresenter::nextFrame() {
         car.move();
     }
     view->clear();
-    //TODO jk refactor to pass size
     view->drawBackground(GRID_COLUMNS, GRID_ROWS);
     view->drawRoads();
     view->drawCrossings(crossings);
