@@ -14,7 +14,6 @@
 
 #include "GlobalConstants.h"
 
-//TODO jk maybe move to WorldMapManager
 inline FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
     if (y < grid.size() && x < grid[y].size()) {
         return mapToFieldValue(grid[y][x]);
@@ -104,7 +103,7 @@ std::vector<Field> findIntersectionOuts(int x, int y, GridType grid) {
 std::vector<Point> generateHorizontalLine(double y, double startX, double endX, int numPoints) {
     std::vector<Point> linePoints;
 
-    double step = (endX - startX) / (numPoints - 1); // Calculate step size
+    double step = (endX - startX) / (numPoints - 1);
 
     for (int i = 0; i < numPoints; i++) {
         double x = startX + i * step;
@@ -267,9 +266,22 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             }
             return std::vector<RoadOption>{};
             break;
+        case FV_CROSSING:
+            if (direction == D_LEFT) {
+                return std::vector{RoadOption(generateHorizontalLineFieldLeft(field.x - 1, field.y), D_LEFT)};
+            }
+        if (direction == D_RIGHT) {
+            return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
+        }
+        if (direction == D_UP) {
+            return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
+        }
+        if (direction == D_DOWN) {
+            return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
+        }
         case FV_DOWN:
             nextField = takeFieldValue(field.x,field.y+1,grid);
-            if (nextField == FV_DOWN) {
+            if (nextField == FV_DOWN || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
             } else if (nextField == FV_INTERSECTION) {
                 return std::vector{generateIntersectionDown(field.x, field.y + 1)};
@@ -277,7 +289,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             break;
         case FV_UP:
             nextField = takeFieldValue(field.x,field.y-1,grid);
-            if (nextField == FV_UP) {
+            if (nextField == FV_UP || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
             } else if (nextField == FV_INTERSECTION) {
                 return std::vector{generateIntersectionUp(field.x, field.y - 1)};
@@ -285,7 +297,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             break;
         case FV_RIGHT:
             nextField = takeFieldValue(field.x+1,field.y,grid);
-            if (nextField == FV_RIGHT) {
+            if (nextField == FV_RIGHT || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
             } else if (nextField == FV_INTERSECTION) {
                 return std::vector{generateIntersectionRight(field.x + 1, field.y)};
@@ -293,7 +305,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             break;
         case FV_LEFT:
             nextField = takeFieldValue(field.x-1,field.y,grid);
-            if (nextField == FV_LEFT) {
+            if (nextField == FV_LEFT || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateHorizontalLineFieldLeft(field.x - 1, field.y), D_LEFT)};
             } else if (nextField == FV_INTERSECTION) {
                 return std::vector{generateIntersectionLeft(field.x - 1, field.y)};
@@ -305,7 +317,6 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
     }
 }
 
-//TODO refactor this
 std::vector<RoadOption> RoadGenerator::createRoads() {
     std::vector<RoadOption> points;
     for (int y = 0; y < grid.size(); y++) {
@@ -319,6 +330,16 @@ std::vector<RoadOption> RoadGenerator::createRoads() {
                 points.push_back(RoadOption(generateHorizontalLineFieldRight(x, y), D_RIGHT));
             } else if (fieldValue == FV_LEFT) {
                 points.push_back(RoadOption(generateHorizontalLineFieldLeft(x, y), D_LEFT));
+            } else if (fieldValue == FV_CROSSING) {
+                if (takeFieldValue(x + 1, y, grid) == FV_RIGHT) {
+                    points.push_back(RoadOption(generateHorizontalLineFieldRight(x, y), D_RIGHT));
+                }else if (takeFieldValue(x-1, y, grid) == FV_LEFT) {
+                    points.push_back(RoadOption(generateHorizontalLineFieldLeft(x, y), D_LEFT));
+                }else if (takeFieldValue(x, y+1, grid) == FV_DOWN) {
+                    points.push_back(RoadOption(generateVerticalLineFieldDown(x, y), D_DOWN));
+                }else if (takeFieldValue(x, y-1, grid) == FV_UP) {
+                    points.push_back(RoadOption(generateVerticalLineFieldUp(x, y), D_UP));
+                }
             } else if (fieldValue == FV_INTERSECTION) {
                 bool shouldHandleIntersection = (
                     takeFieldValue(x + 1, y, grid) == FV_INTERSECTION &&

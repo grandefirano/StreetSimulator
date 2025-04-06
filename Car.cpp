@@ -9,6 +9,7 @@
 
 #include "FieldHelper.h"
 #include "GlobalConstants.h"
+#include "Pedestrian.h"
 
 void Car::chooseNextRoad() {
     auto possibilities = roadGenerator->createRoadPossibilities(field, direction);
@@ -35,10 +36,10 @@ Car::Car(
    roadGenerator(roadGenerator),
    field(field),
    maxSpeed(maxSpeed),
-   speed(maxSpeed),
-patience(patience),
-collisionDetector(_collisionDetector) {
+   patience(patience),
+   collisionDetector(_collisionDetector) {
     position = getCenterPoint(field);
+    speed = maxSpeed;
     nextPoints = {};
     chooseNextRoad();
 }
@@ -47,8 +48,11 @@ std::vector<Point> Car::getNextPoints() {
     return nextPoints;
 }
 
-void Car::checkCollision(std::vector<Car> cars) {
+void Car::checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians) {
     checkSpeedCollision(cars);
+    if (collisionDetector->checkPedestrianCollision(*this,pedestrians)) {
+        speed = STOP;
+    }
     if (collisionDetector->checkIntersectionCollision(*this, cars)) {
         speed = STOP;
         waitingTime++;
@@ -66,13 +70,6 @@ Field Car::getField() {
 
 Direction Car::getNextDirection() {
     return direction;
-}
-
-
-float Car::getRotation() {
-    auto currentPoint = nextPoints.at(0);
-    auto nextPoint = nextPoints.at(2);
-    return atan2(nextPoint.y - currentPoint.y, nextPoint.x - currentPoint.x) * 180 / PI;
 }
 
 //TODO should be same as move and cars kept in some container
@@ -94,20 +91,7 @@ bool Car::operator==(const Car &other) const {
 }
 
 void Car::move() {
-    if (speed == STOP) {
-    } else if (speed == SLOW) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin());
-    } else if (speed == NORMAL) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin(), nextPoints.begin() + 2);
-    } else if (speed == FAST) {
-        position = nextPoints.front();
-        nextPoints.erase(nextPoints.begin(), nextPoints.begin() + 3);
-    }
-    if (nextPoints.size() == 0) {
-        std::cout << "No upcoming points for the car" << std::endl;
-    }
+    Movable::move();
     auto newPositionField = mapToField(position);
     if (newPositionField.x != field.x || newPositionField.y != field.y) {
         field = newPositionField;

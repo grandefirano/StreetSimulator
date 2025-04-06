@@ -6,20 +6,20 @@
 #define CAR_H
 #include "RoadGenerator.h"
 #include "CollisionDetector.h"
+#include "Movable.h"
+#include "Pedestrian.h"
 #include "Speed.h"
 
-class Car {
+class Car : public Movable {
 public:
     explicit Car(int id, RoadGenerator *roadGenerator, CollisionDetector *_collisionDetector, Field field, Speed maxSpeed,
                  int patience);
 
-    void move();
+    void move() override;
 
     Point getPosition();
 
     Field getField();
-
-    float getRotation();
 
     Speed getSpeed();
 
@@ -27,7 +27,7 @@ public:
 
     std::vector<Point> getNextPoints();
 
-    void checkCollision(std::vector<Car> cars);
+    void checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians);
 
     bool operator==(const Car &other) const;
 
@@ -35,12 +35,9 @@ private:
     int id;
     RoadGenerator *roadGenerator;
     CollisionDetector *collisionDetector;
-    Point position;
     Field field;
-    std::vector<Point> nextPoints;
     Direction direction;
     Speed maxSpeed;
-    Speed speed;
     int patience;
     int waitingTime;
 

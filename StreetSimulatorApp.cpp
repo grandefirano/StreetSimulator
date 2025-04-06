@@ -6,9 +6,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "StreetSimulatorApp.h"
+
+#include "CrosswalkManager.h"
+#include "LightsIntersection.h"
+#include "PriorityIntersection.h"
 #include "StreetSimulatorPresenter.h"
 #include "StreetSimulatorSFMLView.h"
 #include "StreetSimulatorView.h"
+#include "UncontrolledIntersection.h"
 #include "WorldMapGridProvider.h"
 
 StreetSimulatorApp::StreetSimulatorApp() {
@@ -21,7 +26,8 @@ StreetSimulatorApp::StreetSimulatorApp() {
     auto *roadGenerator = new RoadGenerator(grid);
     auto *worldMapManager = new WorldMapManager(worldGridProvider);
     auto *collisionDetector = new CollisionDetector(lightsManager,worldMapManager);
-    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator,lightsManager,collisionDetector,worldMapManager);
+    auto *crosswalkManager = new CrosswalkManager(worldMapManager);
+    StreetSimulatorPresenter *presenter = new StreetSimulatorPresenter(view,roadGenerator,lightsManager,collisionDetector,worldMapManager,crosswalkManager);
 
     while (window->isOpen()) {
         while (const std::optional event = window->pollEvent()) {
