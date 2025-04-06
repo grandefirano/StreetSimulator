@@ -7,17 +7,6 @@
 #include "WorldMapManager.h"
 
 class StreetSimulatorPresenter {
-private:
-    StreetSimulatorView *view;
-    LightsManager *lightsManager;
-    CrosswalkManager *crosswalkManager;
-    int timeCount = 0;
-    std::vector<Car> cars;
-    std::vector<Sign> signs;
-    std::vector<Crossing> crossings;
-
-    void initPresenter(WorldMapManager *worldMapManager, RoadGenerator *roadGenerator, CarGenerator *carGenerator);
-
 public:
     StreetSimulatorPresenter(
         StreetSimulatorView *_view,
@@ -29,6 +18,16 @@ public:
     );
 
     void nextFrame();
+private:
+    StreetSimulatorView *view;
+    LightsManager *lightsManager;
+    CrosswalkManager *crosswalkManager;
+    int timeCount = 0;
+    std::vector<Car> cars;
+    std::vector<Sign> signs;
+    std::vector<Crossing> crossings;
+
+    void initPresenter(WorldMapManager *worldMapManager, RoadGenerator *roadGenerator, CarGenerator *carGenerator);
 };
 
 

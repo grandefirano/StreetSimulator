@@ -12,70 +12,41 @@
 #include "DirectionDelta.h"
 #include "RelativeDirection.h"
 
+/**
+ * @class DirectionMapper
+ * @brief Takes care of mapping from and to Direction objects.
+ */
 class DirectionMapper {
 public:
-    static Direction parseToDirection(const FieldValue fieldValue) {
-        if (fieldValue== FV_DOWN) return D_DOWN;
-        if (fieldValue== FV_UP) return D_UP;
-        if (fieldValue== FV_RIGHT) return D_RIGHT;
-        if (fieldValue== FV_LEFT) return D_LEFT;
-        throw DirectionException();
-    }
+    /**
+     *@brief Mapper from FieldValue to Direction.
+     * @param fieldValue Value of the field to be mapped to direction.
+     * @return Direction of that field.
+     */
+    static Direction parseToDirection(const FieldValue fieldValue);
 
-    static DirectionDelta parseToFrontDirectionDelta(const Direction &direction) {
-        switch (direction) {
-            case D_UP: return DirectionDelta(0, -1);
-            case D_DOWN: return DirectionDelta(0, 1);
-            case D_LEFT: return DirectionDelta(-1, 0);
-            case D_RIGHT: return DirectionDelta(1, 0);
-            default: throw std::invalid_argument("Invalid direction");
-        }
-    }
+    /**
+     *@brief Mapper from Direction to front DirectionDelta.
+     * @param direction Direction to be mapped to direction delta.
+     * @return Front DirectionDelta that represents given direction.
+     */
+    static DirectionDelta parseToFrontDirectionDelta(const Direction &direction);
 
-    static DirectionDelta parseToRightDirectionDelta(const Direction &direction) {
-        switch (direction) {
-            case D_UP: return DirectionDelta(1, 0);
-            case D_DOWN: return DirectionDelta(-1, 0);
-            case D_LEFT: return DirectionDelta(0, -1);
-            case D_RIGHT: return DirectionDelta(0, 1);
-            default: throw std::invalid_argument("Invalid direction");
-        }
-    }
+    /**
+    *@brief Mapper from Direction to right DirectionDelta.
+    * @param direction Direction to be mapped to direction delta.
+    * @return DirectionDelta that represents right direction (90 degrees right turn) from given direction.
+    */
+    static DirectionDelta parseToRightDirectionDelta(const Direction &direction);
 
-
-    static RelativeDirection parseToRelativeDirection(const Direction &currentDirection,const Direction &nextDirection) {
-        switch (currentDirection) {
-            case D_UP:
-                switch (nextDirection) {
-                    case D_UP: return REL_STRAIGHT;
-                    case D_RIGHT: return REL_RIGHT;
-                    case D_LEFT: return REL_LEFT;
-                    default: throw std::invalid_argument("Invalid relative direction");
-                }
-            case D_DOWN:
-                switch (nextDirection) {
-                    case D_DOWN: return REL_STRAIGHT;
-                    case D_RIGHT: return REL_LEFT;
-                    case D_LEFT: return REL_RIGHT;
-                    default: throw std::invalid_argument("Invalid relative direction");
-                }
-            case D_LEFT:
-                switch (nextDirection) {
-                    case D_LEFT: return REL_STRAIGHT;
-                    case D_UP: return REL_RIGHT;
-                    case D_DOWN: return REL_LEFT;
-                    default: throw std::invalid_argument("Invalid relative direction");
-                }
-            case D_RIGHT:
-                switch (nextDirection) {
-                    case D_RIGHT: return REL_STRAIGHT;
-                    case D_DOWN: return REL_RIGHT;
-                    case D_UP: return REL_LEFT;
-                    default: throw std::invalid_argument("Invalid relative direction");
-                }
-            default: throw std::invalid_argument("Invalid current direction");
-        }
-    }
+    /**
+     *@brief Mapper from Direction to RelativeDirection.
+     * @param currentDirection Current direction of the object.
+     * @param nextDirection Direction that is compared to the current direction.
+     * @return Relative direction of the next direction calculated based on the current direction.
+     */
+    static RelativeDirection
+    parseToRelativeDirection(const Direction &currentDirection, const Direction &nextDirection);
 };
 
 #endif //DIRECTIONMAPPER_H
