@@ -7,7 +7,6 @@
 #include <string>
 #include <sstream>
 
-#include "Field.h"
 #include "FieldValue.h"
 
 GridType WorldMapGridProvider::provideGrid() {

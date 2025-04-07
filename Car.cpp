@@ -8,8 +8,26 @@
 #include <random>
 
 #include "FieldHelper.h"
-#include "GlobalConstants.h"
 #include "Pedestrian.h"
+
+Car::Car(
+    int id,
+    RoadGenerator *roadGenerator,
+    CollisionDetector *_collisionDetector,
+    Field field,
+    Speed maxSpeed,
+    int patience
+): id(id),
+   roadGenerator(roadGenerator),
+   collisionDetector(_collisionDetector),
+   field(field),
+   maxSpeed(maxSpeed),
+   patience(patience) {
+    position = getCenterPoint(field);
+    speed = maxSpeed;
+    nextPoints = {};
+    chooseNextRoad();
+}
 
 void Car::chooseNextRoad() {
     auto possibilities = roadGenerator->createRoadPossibilities(field, direction);
@@ -24,31 +42,7 @@ void Car::chooseNextRoad() {
     }
 }
 
-Car::Car(
-    int id,
-    RoadGenerator *roadGenerator,
-    CollisionDetector *_collisionDetector,
-    Field field,
-    Speed maxSpeed,
-    int patience
-
-): id(id),
-   roadGenerator(roadGenerator),
-   field(field),
-   maxSpeed(maxSpeed),
-   patience(patience),
-   collisionDetector(_collisionDetector) {
-    position = getCenterPoint(field);
-    speed = maxSpeed;
-    nextPoints = {};
-    chooseNextRoad();
-}
-
-std::vector<Point> Car::getNextPoints() {
-    return nextPoints;
-}
-
-void Car::checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestrians) {
+void Car::checkCollision(const std::vector<Car> &cars, const std::vector<Pedestrian> &pedestrians) {
     checkSpeedCollision(cars);
     if (collisionDetector->checkPedestrianCollision(*this,pedestrians)) {
         speed = STOP;
@@ -64,30 +58,18 @@ void Car::checkCollision(std::vector<Car> cars,std::vector<Pedestrian> pedestria
     }
 }
 
-Field Car::getField() {
-    return field;
-}
-
-Direction Car::getNextDirection() {
-    return direction;
-}
-
-//TODO should be same as move and cars kept in some container
-void Car::checkSpeedCollision(std::vector<Car> cars) {
+void Car::checkSpeedCollision(const std::vector<Car> &cars) {
     auto newSpeed = maxSpeed;
     for (auto car: cars) {
         for (auto upcomingPoint: nextPoints) {
             if (car.getPosition() == upcomingPoint) {
-                //TODO add check if the car infront is really slower
-                newSpeed = car.getSpeed();
+                if (car.getSpeed()<=this->speed) {
+                    newSpeed = car.getSpeed();
+                }
             }
         }
     }
     speed = newSpeed;
-}
-
-bool Car::operator==(const Car &other) const {
-    return this->id == other.id;
 }
 
 void Car::move() {
@@ -99,10 +81,18 @@ void Car::move() {
     }
 }
 
-Point Car::getPosition() {
-    return position;
+Field Car::getField() const {
+    return field;
 }
 
-Speed Car::getSpeed() {
+Direction Car::getNextDirection() const {
+    return direction;
+}
+
+Speed Car::getSpeed() const {
     return speed;
+}
+
+bool Car::operator==(const Car &other) const {
+    return this->id == other.id;
 }

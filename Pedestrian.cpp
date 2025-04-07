@@ -3,20 +3,14 @@
 
 #include "FieldHelper.h"
 
-Pedestrian::Pedestrian(std::vector<Point> allPoints, Speed _speed, Field field) {
+Pedestrian::Pedestrian(const std::vector<Point> &allPoints, const Speed &_speed, const Field &field) {
     nextPoints = allPoints;
     speed = _speed;
     position = getCenterPoint(field);
 }
 
-std::vector<Point> Pedestrian::getNextPoints() {
-    return nextPoints;
-}
-
-Field Pedestrian::getField() {
+Field Pedestrian::getField() const {
     return mapToField(position);
 }
 
-Point Pedestrian::getPosition() {
-    return position;
-}
+

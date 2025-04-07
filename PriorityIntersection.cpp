@@ -1,29 +1,21 @@
-//
-// Created by User on 2025-04-05.
-//
 
 #include "PriorityIntersection.h"
 
-#include <iostream>
-#include <ostream>
-
 #include "DirectionMapper.h"
-#include "EdgeCollisionHelper.h"
 #include "FieldHelper.h"
 #include "VectorHelper.h"
 
-PriorityIntersection::PriorityIntersection(WorldMapManager *_worldMapManager) {
+PriorityIntersection::PriorityIntersection(WorldMapManager *_worldMapManager,EdgeCollisionDetector *_edgeCollisionDetector):Intersection(_edgeCollisionDetector) {
     worldMapManager = _worldMapManager;
 }
 
-bool PriorityIntersection::canGo(Car &currentCar, Direction currentDirection,
-                                 std::vector<Car> collidingCars) {
+bool PriorityIntersection::canGo(const Car &currentCar,const Direction &currentDirection,
+                                 const std::vector<Car> &collidingCars) {
     bool hasCollision = false;
     auto rightFieldValue = worldMapManager->takeFieldValue(getOneRight(currentCar.getField(), currentDirection));
     auto isOnPriorityRoad = rightFieldValue == FV_PRIORITY_SIGN;
     for (auto &car: collidingCars) {
-        auto isEdgeCollision = checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), 31 / 3);
-        if (isEdgeCollision) {
+        if (edgeCollisionDetector->checkEdgeCollision(car.getNextPoints(), currentCar.getNextPoints(), FIELD_SCALE / 2)) {
             auto intersection = getIntersectionFields(currentCar.getField(), currentDirection);
             if (contains<Field>(intersection, car.getField())) {
                 return false;
@@ -45,7 +37,7 @@ bool PriorityIntersection::canGo(Car &currentCar, Direction currentDirection,
     return !hasCollision;
 }
 
-bool PriorityIntersection::compareOnPriority(Car &currentCar, Car &otherCar, const Direction &currentDirection) {
+bool PriorityIntersection::compareOnPriority(const Car &currentCar,const Car &otherCar, const Direction &currentDirection) {
     auto inFront = getIntersectionEntrance(currentCar.getField(), currentDirection, ENTR_STRAIGHT);
     auto relativeDirection = DirectionMapper::parseToRelativeDirection(currentDirection, currentCar.getNextDirection());
     if (relativeDirection == REL_RIGHT) {
@@ -65,7 +57,7 @@ bool PriorityIntersection::compareOnPriority(Car &currentCar, Car &otherCar, con
     return true;
 }
 
-bool PriorityIntersection::compareWithoutPriority(Car &currentCar, Car &otherCar, const Direction &currentDirection) {
+bool PriorityIntersection::compareWithoutPriority(const Car &currentCar,const Car &otherCar, const Direction &currentDirection) {
     auto inFront = getIntersectionEntrance(currentCar.getField(), currentDirection, ENTR_STRAIGHT);
     auto onTheRight = getIntersectionEntrance(currentCar.getField(), currentDirection, ENTR_RIGHT);
     auto onTheLeft = getIntersectionEntrance(currentCar.getField(), currentDirection, ENTR_LEFT);

@@ -43,7 +43,6 @@ add_executable(StreetSimulator main.cpp
         Light.h
         CollisionDetector.cpp
         CollisionDetector.h
-        EdgeCollisionHelper.h
         Intersection.h
         Intersection.cpp
         LightsIntersection.cpp
@@ -65,6 +64,11 @@ add_executable(StreetSimulator main.cpp
         CrosswalkManager.cpp
         CrosswalkManager.h
         Crossing.h
+        CarGenerator.cpp
+        CarGenerator.h
+        EdgeCollisionDetector.cpp
+        EdgeCollisionDetector.h
+        DirectionMapper.cpp
 )
 
 target_link_libraries(StreetSimulator PRIVATE SFML::Graphics)

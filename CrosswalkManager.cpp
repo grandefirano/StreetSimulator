@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-#include "DirectionDelta.h"
 #include "FieldHelper.h"
 #include "GlobalConstants.h"
 #include "WorldMapManager.h"
@@ -14,12 +13,7 @@ bool shouldGeneratePedestrian(int count) {
 
 CrosswalkManager::CrosswalkManager(WorldMapManager *_worldMapManager) {
     worldMapManager = _worldMapManager;
-    spawns = worldMapManager->createPedestrianSpawns();
-}
-
-
-std::vector<Pedestrian> CrosswalkManager::getPedestrians() {
-    return pedestrians;
+    spawns = worldMapManager->providePedestrianSpawns();
 }
 
 void CrosswalkManager::nextFrame() {
@@ -36,7 +30,7 @@ void CrosswalkManager::nextFrame() {
     count++;
 }
 
-std::vector<Point> generateVerticalLineBetweenFields(Field startField, Field endField, int numPoints) {
+std::vector<Point> generateVerticalLineBetweenFields(const Field &startField, const Field &endField, const int numPoints) {
     std::vector<Point> linePoints;
     auto startPoint = getCenterPoint(startField);
     auto endPoint = getCenterPoint(endField);
@@ -49,7 +43,7 @@ std::vector<Point> generateVerticalLineBetweenFields(Field startField, Field end
     return linePoints;
 }
 
-std::vector<Point> generateHorizontalLineBetweenFields(Field startField, Field endField, int numPoints) {
+std::vector<Point> generateHorizontalLineBetweenFields(const Field &startField,const Field &endField, int numPoints) {
     std::vector<Point> linePoints;
     auto startPoint = getCenterPoint(startField);
     auto endPoint = getCenterPoint(endField);
@@ -66,26 +60,33 @@ void CrosswalkManager::generatePedestrianRandomly() {
 
     if (spawns.size() != 0) {
         srand((unsigned) time(nullptr));
+        //choose random place of pedestrian being generated
         int chosenSpawn = rand() % spawns.size();
+        //choose random speed of pedestrian
         int chosenSpeed = rand() % 2;
         Speed speed = FAST;
         if (chosenSpeed == 0) {
             speed = SLOW;
         }
         auto spawn = spawns[chosenSpawn];
+        //create path for pedestrian
+        auto pathFieldLength = 3;
+        auto numberOfPoints = 12*BASE_NUMBER_OF_POINTS;
         std::vector<Point> allPoints;
         if (worldMapManager->takeFieldValue(Field(spawn.x,spawn.y+1))==FV_CROSSING) {
-            allPoints = generateVerticalLineBetweenFields(Field(spawn.x,spawn.y),Field(spawn.x,spawn.y+3),12*M_POINTS);
+            allPoints = generateVerticalLineBetweenFields(spawn,Field(spawn.x,spawn.y+pathFieldLength),numberOfPoints);
         } else if (worldMapManager->takeFieldValue(Field(spawn.x,spawn.y-1))==FV_CROSSING) {
-            allPoints = generateVerticalLineBetweenFields(Field(spawn.x,spawn.y),Field(spawn.x,spawn.y-3),12*M_POINTS);
+            allPoints = generateVerticalLineBetweenFields(spawn,Field(spawn.x,spawn.y-pathFieldLength),numberOfPoints);
         }else if (worldMapManager->takeFieldValue(Field(spawn.x+1,spawn.y))==FV_CROSSING) {
-            allPoints = generateHorizontalLineBetweenFields(Field(spawn.x,spawn.y),Field(spawn.x+3,spawn.y),12*M_POINTS);
+            allPoints = generateHorizontalLineBetweenFields(spawn,Field(spawn.x+pathFieldLength,spawn.y),numberOfPoints);
         }else if (worldMapManager->takeFieldValue(Field(spawn.x-1,spawn.y))==FV_CROSSING) {
-            allPoints = generateHorizontalLineBetweenFields(Field(spawn.x,spawn.y),Field(spawn.x-3,spawn.y),12*M_POINTS);
+            allPoints = generateHorizontalLineBetweenFields(spawn,Field(spawn.x-pathFieldLength,spawn.y),numberOfPoints);
         }
 
         pedestrians.push_back(Pedestrian(allPoints,speed,spawn));
     }
 }
 
-
+std::vector<Pedestrian> CrosswalkManager::getPedestrians() {
+    return pedestrians;
+}

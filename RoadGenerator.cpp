@@ -13,8 +13,11 @@
 #include "Point.h"
 
 #include "GlobalConstants.h"
+#include "WorldMapGridProvider.h"
 
-inline FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
+RoadGenerator::RoadGenerator(WorldMapGridProvider *_worldMapGridProvider) : grid(_worldMapGridProvider->provideGrid()) {}
+
+FieldValue takeFieldValue(const int x, const int y, const GridType &grid) {
     if (y < grid.size() && x < grid[y].size()) {
         return mapToFieldValue(grid[y][x]);
     }
@@ -47,7 +50,7 @@ std::vector<Point> generateVerticalLine(double x, double startY, double endY, in
 }
 
 std::vector<Field> findIntersectionOuts(int x, int y, GridType grid) {
-    auto value = takeFieldValue(x,y,grid);
+    auto value = takeFieldValue(x, y, grid);
     std::vector<Field> fields;
     Field exit1;
     Field exit2;
@@ -56,7 +59,7 @@ std::vector<Field> findIntersectionOuts(int x, int y, GridType grid) {
         if (takeFieldValue(x, y - 3, grid) == FV_UP) {
             exit1 = Field(x, y - 3);
         }
-        if (takeFieldValue(x - 2, y - 2, grid)==FV_LEFT) {
+        if (takeFieldValue(x - 2, y - 2, grid) == FV_LEFT) {
             exit2 = Field(x - 2, y - 2);
         }
         if (takeFieldValue(x + 1, y - 1, grid) == FV_RIGHT) {
@@ -113,75 +116,75 @@ std::vector<Point> generateHorizontalLine(double y, double startX, double endX, 
 }
 
 std::vector<Point> generateVerticalLineFieldDown(int x, int y) {
-    auto x1 = (x) * M_SCALE;
-    auto startY = (y - 0.5) * M_SCALE;
-    auto endY = (y + 0.5) * M_SCALE;
-    return generateVerticalLine(x1, startY, endY, M_POINTS);
+    auto x1 = (x) * FIELD_SCALE;
+    auto startY = (y - 0.5) * FIELD_SCALE;
+    auto endY = (y + 0.5) * FIELD_SCALE;
+    return generateVerticalLine(x1, startY, endY, BASE_NUMBER_OF_POINTS);
 }
 
 std::vector<Point> generateVerticalLineFieldDownLong(int x, int y) {
-    auto x1 = (x) * M_SCALE;
-    auto startY = (y - 0.5) * M_SCALE;
-    auto endY = (y + 1.5) * M_SCALE;
-    return generateVerticalLine(x1, startY, endY, M_POINTS*2);
+    auto x1 = (x) * FIELD_SCALE;
+    auto startY = (y - 0.5) * FIELD_SCALE;
+    auto endY = (y + 1.5) * FIELD_SCALE;
+    return generateVerticalLine(x1, startY, endY, BASE_NUMBER_OF_POINTS * 2);
 }
 
 std::vector<Point> generateVerticalLineFieldUp(int x, int y) {
-    auto x1 = (x) * M_SCALE;
-    auto startY = (y + 0.5) * M_SCALE;
-    auto endY = (y - 0.5) * M_SCALE;
-    return generateVerticalLine(x1, startY, endY, M_POINTS);
+    auto x1 = (x) * FIELD_SCALE;
+    auto startY = (y + 0.5) * FIELD_SCALE;
+    auto endY = (y - 0.5) * FIELD_SCALE;
+    return generateVerticalLine(x1, startY, endY, BASE_NUMBER_OF_POINTS);
 }
 
 std::vector<Point> generateVerticalLineFieldUpLong(int x, int y) {
-    auto x1 = (x) * M_SCALE;
-    auto startY = (y + 0.5) * M_SCALE;
-    auto endY = (y - 1.5) * M_SCALE;
-    return generateVerticalLine(x1, startY, endY, M_POINTS*2);
+    auto x1 = (x) * FIELD_SCALE;
+    auto startY = (y + 0.5) * FIELD_SCALE;
+    auto endY = (y - 1.5) * FIELD_SCALE;
+    return generateVerticalLine(x1, startY, endY, BASE_NUMBER_OF_POINTS * 2);
 }
 
 std::vector<Point> generateHorizontalLineFieldRight(int x, int y) {
-    auto y1 = (y) * M_SCALE;
-    auto startX = (x - 0.5) * M_SCALE;
-    auto endX = (x + 0.5) * M_SCALE;
-    return generateHorizontalLine(y1, startX, endX, M_POINTS);
+    auto y1 = (y) * FIELD_SCALE;
+    auto startX = (x - 0.5) * FIELD_SCALE;
+    auto endX = (x + 0.5) * FIELD_SCALE;
+    return generateHorizontalLine(y1, startX, endX, BASE_NUMBER_OF_POINTS);
 }
 
 std::vector<Point> generateHorizontalLineFieldRightLong(int x, int y) {
-    auto y1 = (y) * M_SCALE;
-    auto startX = (x - 0.5) * M_SCALE;
-    auto endX = (x + 1.5) * M_SCALE;
-    return generateHorizontalLine(y1, startX, endX, M_POINTS*2);
+    auto y1 = (y) * FIELD_SCALE;
+    auto startX = (x - 0.5) * FIELD_SCALE;
+    auto endX = (x + 1.5) * FIELD_SCALE;
+    return generateHorizontalLine(y1, startX, endX, BASE_NUMBER_OF_POINTS * 2);
 }
 
 std::vector<Point> generateHorizontalLineFieldLeft(int x, int y) {
-    auto y1 = (y) * M_SCALE;
-    auto startX = (x + 0.5) * M_SCALE;
-    auto endX = (x - 0.5) * M_SCALE;
-    return generateHorizontalLine(y1, startX, endX, M_POINTS);
+    auto y1 = (y) * FIELD_SCALE;
+    auto startX = (x + 0.5) * FIELD_SCALE;
+    auto endX = (x - 0.5) * FIELD_SCALE;
+    return generateHorizontalLine(y1, startX, endX, BASE_NUMBER_OF_POINTS);
 }
 
 std::vector<Point> generateHorizontalLineFieldLeftLong(int x, int y) {
-    auto y1 = (y) * M_SCALE;
-    auto startX = (x + 0.5) * M_SCALE;
-    auto endX = (x - 1.5) * M_SCALE;
-    return generateHorizontalLine(y1, startX, endX, M_POINTS*2);
+    auto y1 = (y) * FIELD_SCALE;
+    auto startX = (x + 0.5) * FIELD_SCALE;
+    auto endX = (x - 1.5) * FIELD_SCALE;
+    return generateHorizontalLine(y1, startX, endX, BASE_NUMBER_OF_POINTS * 2);
 }
 
 std::vector<RoadOption> RoadGenerator::generateIntersectionDown(int x, int y) {
     std::vector<RoadOption> points;
-    std::vector<Point> quarter1 = generateQuarterCircle((x - 0.5) * M_SCALE, (y - 0.5) * M_SCALE, M_SCALE * 0.5, 0,
+    std::vector<Point> quarter1 = generateQuarterCircle((x - 0.5) * FIELD_SCALE, (y - 0.5) * FIELD_SCALE, FIELD_SCALE * 0.5, 0,
                                                         M_PI / 2,
-                                                        M_POINTS);
-    std::vector<Point> quarter2 = generateQuarterCircle((x + 1.5) * M_SCALE, (y - 0.5) * M_SCALE, M_SCALE * 1.5, M_PI,
-                                                        M_PI / 2, M_POINTS*2);
-    if (takeFieldValue(x + 2, y+1, grid)==FV_RIGHT) {
+                                                        BASE_NUMBER_OF_POINTS);
+    std::vector<Point> quarter2 = generateQuarterCircle((x + 1.5) * FIELD_SCALE, (y - 0.5) * FIELD_SCALE, FIELD_SCALE * 1.5, M_PI,
+                                                        M_PI / 2, BASE_NUMBER_OF_POINTS * 2);
+    if (takeFieldValue(x + 2, y + 1, grid) == FV_RIGHT) {
         points.push_back(RoadOption(quarter2, D_RIGHT));
     }
-    if (takeFieldValue(x -1, y, grid)==FV_LEFT) {
+    if (takeFieldValue(x - 1, y, grid) == FV_LEFT) {
         points.push_back(RoadOption(quarter1, D_LEFT));
     }
-    if (takeFieldValue(x, y+2, grid)==FV_DOWN) {
+    if (takeFieldValue(x, y + 2, grid) == FV_DOWN) {
         points.push_back(RoadOption(generateVerticalLineFieldDownLong(x, y), D_DOWN));
     }
     return points;
@@ -189,19 +192,19 @@ std::vector<RoadOption> RoadGenerator::generateIntersectionDown(int x, int y) {
 
 std::vector<RoadOption> RoadGenerator::generateIntersectionUp(int x, int y) {
     std::vector<RoadOption> points;
-    std::vector<Point> quarter1 = generateQuarterCircle((x - 1.5) * M_SCALE, (y + 0.5) * M_SCALE, M_SCALE * 1.5,
+    std::vector<Point> quarter1 = generateQuarterCircle((x - 1.5) * FIELD_SCALE, (y + 0.5) * FIELD_SCALE, FIELD_SCALE * 1.5,
                                                         2 * M_PI,
-                                                        3 * M_PI / 2, M_POINTS*2);
+                                                        3 * M_PI / 2, BASE_NUMBER_OF_POINTS * 2);
 
-    std::vector<Point> quarter2 = generateQuarterCircle((x + 0.5) * M_SCALE, (y + 0.5) * M_SCALE, M_SCALE * 0.5, M_PI,
-                                                        3 * M_PI / 2, M_POINTS);
-    if (takeFieldValue(x + 1, y, grid)==FV_RIGHT) {
+    std::vector<Point> quarter2 = generateQuarterCircle((x + 0.5) * FIELD_SCALE, (y + 0.5) * FIELD_SCALE, FIELD_SCALE * 0.5, M_PI,
+                                                        3 * M_PI / 2, BASE_NUMBER_OF_POINTS);
+    if (takeFieldValue(x + 1, y, grid) == FV_RIGHT) {
         points.push_back(RoadOption(quarter2, D_RIGHT));
     }
-    if (takeFieldValue(x - 2, y-1, grid)==FV_LEFT) {
+    if (takeFieldValue(x - 2, y - 1, grid) == FV_LEFT) {
         points.push_back(RoadOption(quarter1, D_LEFT));
     }
-    if (takeFieldValue(x, y-2, grid)==FV_UP) {
+    if (takeFieldValue(x, y - 2, grid) == FV_UP) {
         points.push_back(RoadOption(generateVerticalLineFieldUpLong(x, y), D_UP));
     }
     return points;
@@ -209,19 +212,19 @@ std::vector<RoadOption> RoadGenerator::generateIntersectionUp(int x, int y) {
 
 std::vector<RoadOption> RoadGenerator::generateIntersectionLeft(int x, int y) {
     std::vector<RoadOption> points;
-    std::vector<Point> quarter1 = generateQuarterCircle((x + 0.5) * M_SCALE, (y - 0.5) * M_SCALE, M_SCALE * 0.5,
+    std::vector<Point> quarter1 = generateQuarterCircle((x + 0.5) * FIELD_SCALE, (y - 0.5) * FIELD_SCALE, FIELD_SCALE * 0.5,
                                                         M_PI / 2,
-                                                        M_PI, M_POINTS);
-    std::vector<Point> quarter2 = generateQuarterCircle((x + 0.5) * M_SCALE, (y + 1.5) * M_SCALE, M_SCALE * 1.5,
+                                                        M_PI, BASE_NUMBER_OF_POINTS);
+    std::vector<Point> quarter2 = generateQuarterCircle((x + 0.5) * FIELD_SCALE, (y + 1.5) * FIELD_SCALE, FIELD_SCALE * 1.5,
                                                         3 * M_PI / 2,
-                                                        M_PI, M_POINTS*2);
-    if (takeFieldValue(x, y-1, grid)==FV_UP) {
+                                                        M_PI, BASE_NUMBER_OF_POINTS * 2);
+    if (takeFieldValue(x, y - 1, grid) == FV_UP) {
         points.push_back(RoadOption(quarter1, D_UP));
     }
-    if (takeFieldValue(x-1, y+2, grid)==FV_DOWN) {
+    if (takeFieldValue(x - 1, y + 2, grid) == FV_DOWN) {
         points.push_back(RoadOption(quarter2, D_DOWN));
     }
-    if (takeFieldValue(x-2,y, grid)==FV_LEFT) {
+    if (takeFieldValue(x - 2, y, grid) == FV_LEFT) {
         points.push_back(RoadOption(generateHorizontalLineFieldLeftLong(x, y), D_LEFT));
     }
     return points;
@@ -229,39 +232,39 @@ std::vector<RoadOption> RoadGenerator::generateIntersectionLeft(int x, int y) {
 
 std::vector<RoadOption> RoadGenerator::generateIntersectionRight(int x, int y) {
     std::vector<RoadOption> points;
-    std::vector<Point> quarter1 = generateQuarterCircle((x - 0.5) * M_SCALE, (y + 0.5) * M_SCALE, M_SCALE * 0.5,
+    std::vector<Point> quarter1 = generateQuarterCircle((x - 0.5) * FIELD_SCALE, (y + 0.5) * FIELD_SCALE, FIELD_SCALE * 0.5,
                                                         3 * M_PI / 2,
-                                                        2 * M_PI, M_POINTS);
-    std::vector<Point> quarter2 = generateQuarterCircle((x - 0.5) * M_SCALE, (y - 1.5) * M_SCALE, M_SCALE * 1.5,
+                                                        2 * M_PI, BASE_NUMBER_OF_POINTS);
+    std::vector<Point> quarter2 = generateQuarterCircle((x - 0.5) * FIELD_SCALE, (y - 1.5) * FIELD_SCALE, FIELD_SCALE * 1.5,
                                                         M_PI / 2, 0,
-                                                        M_POINTS*2);
-    if (takeFieldValue(x, y+1, grid)==FV_DOWN) {
+                                                        BASE_NUMBER_OF_POINTS * 2);
+    if (takeFieldValue(x, y + 1, grid) == FV_DOWN) {
         points.push_back(RoadOption(quarter1, D_DOWN));
     }
-    if (takeFieldValue(x+1, y-2, grid)==FV_UP) {
+    if (takeFieldValue(x + 1, y - 2, grid) == FV_UP) {
         points.push_back(RoadOption(quarter2, D_UP));
     }
-    if (takeFieldValue(x+2, y, grid)==FV_RIGHT) {
+    if (takeFieldValue(x + 2, y, grid) == FV_RIGHT) {
         points.push_back(RoadOption(generateHorizontalLineFieldRightLong(x, y), D_RIGHT));
     }
     return points;
 }
 
-std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Direction direction) {
+std::vector<RoadOption> RoadGenerator::createRoadPossibilities(const Field &field, const Direction &direction) {
     char nextField;
-    char fieldValue = takeFieldValue(field.x,field.y,grid);
+    char fieldValue = takeFieldValue(field.x, field.y, grid);
     switch (fieldValue) {
         case FV_INTERSECTION:
-            if (takeFieldValue(field.x,field.y+1,grid) == FV_DOWN && direction == D_DOWN) {
+            if (takeFieldValue(field.x, field.y + 1, grid) == FV_DOWN && direction == D_DOWN) {
                 return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
             }
-            if (takeFieldValue(field.x,field.y-1,grid) == FV_UP && direction == D_UP) {
+            if (takeFieldValue(field.x, field.y - 1, grid) == FV_UP && direction == D_UP) {
                 return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
             }
-            if (takeFieldValue(field.x+1,field.y,grid) == FV_RIGHT && direction == D_RIGHT) {
+            if (takeFieldValue(field.x + 1, field.y, grid) == FV_RIGHT && direction == D_RIGHT) {
                 return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
             }
-            if (takeFieldValue(field.x-1,field.y,grid) == FV_LEFT && direction == D_LEFT) {
+            if (takeFieldValue(field.x - 1, field.y, grid) == FV_LEFT && direction == D_LEFT) {
                 return std::vector{RoadOption(generateHorizontalLineFieldLeft(field.x - 1, field.y), D_LEFT)};
             }
             return std::vector<RoadOption>{};
@@ -270,17 +273,17 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             if (direction == D_LEFT) {
                 return std::vector{RoadOption(generateHorizontalLineFieldLeft(field.x - 1, field.y), D_LEFT)};
             }
-        if (direction == D_RIGHT) {
-            return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
-        }
-        if (direction == D_UP) {
-            return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
-        }
-        if (direction == D_DOWN) {
-            return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
-        }
+            if (direction == D_RIGHT) {
+                return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
+            }
+            if (direction == D_UP) {
+                return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
+            }
+            if (direction == D_DOWN) {
+                return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
+            }
         case FV_DOWN:
-            nextField = takeFieldValue(field.x,field.y+1,grid);
+            nextField = takeFieldValue(field.x, field.y + 1, grid);
             if (nextField == FV_DOWN || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateVerticalLineFieldDown(field.x, field.y + 1), D_DOWN)};
             } else if (nextField == FV_INTERSECTION) {
@@ -288,7 +291,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             }
             break;
         case FV_UP:
-            nextField = takeFieldValue(field.x,field.y-1,grid);
+            nextField = takeFieldValue(field.x, field.y - 1, grid);
             if (nextField == FV_UP || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateVerticalLineFieldUp(field.x, field.y - 1), D_UP)};
             } else if (nextField == FV_INTERSECTION) {
@@ -296,7 +299,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             }
             break;
         case FV_RIGHT:
-            nextField = takeFieldValue(field.x+1,field.y,grid);
+            nextField = takeFieldValue(field.x + 1, field.y, grid);
             if (nextField == FV_RIGHT || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateHorizontalLineFieldRight(field.x + 1, field.y), D_RIGHT)};
             } else if (nextField == FV_INTERSECTION) {
@@ -304,7 +307,7 @@ std::vector<RoadOption> RoadGenerator::createRoadPossibilities(Field field, Dire
             }
             break;
         case FV_LEFT:
-            nextField = takeFieldValue(field.x-1,field.y,grid);
+            nextField = takeFieldValue(field.x - 1, field.y, grid);
             if (nextField == FV_LEFT || nextField == FV_CROSSING) {
                 return std::vector{RoadOption(generateHorizontalLineFieldLeft(field.x - 1, field.y), D_LEFT)};
             } else if (nextField == FV_INTERSECTION) {
@@ -321,7 +324,7 @@ std::vector<RoadOption> RoadGenerator::createRoads() {
     std::vector<RoadOption> points;
     for (int y = 0; y < grid.size(); y++) {
         for (int x = 0; x < grid[y].size(); x++) {
-            auto fieldValue = takeFieldValue(x,y,grid);
+            auto fieldValue = takeFieldValue(x, y, grid);
             if (fieldValue == FV_DOWN) {
                 points.push_back(RoadOption(generateVerticalLineFieldDown(x, y), D_DOWN));
             } else if (fieldValue == FV_UP) {
@@ -333,11 +336,11 @@ std::vector<RoadOption> RoadGenerator::createRoads() {
             } else if (fieldValue == FV_CROSSING) {
                 if (takeFieldValue(x + 1, y, grid) == FV_RIGHT) {
                     points.push_back(RoadOption(generateHorizontalLineFieldRight(x, y), D_RIGHT));
-                }else if (takeFieldValue(x-1, y, grid) == FV_LEFT) {
+                } else if (takeFieldValue(x - 1, y, grid) == FV_LEFT) {
                     points.push_back(RoadOption(generateHorizontalLineFieldLeft(x, y), D_LEFT));
-                }else if (takeFieldValue(x, y+1, grid) == FV_DOWN) {
+                } else if (takeFieldValue(x, y + 1, grid) == FV_DOWN) {
                     points.push_back(RoadOption(generateVerticalLineFieldDown(x, y), D_DOWN));
-                }else if (takeFieldValue(x, y-1, grid) == FV_UP) {
+                } else if (takeFieldValue(x, y - 1, grid) == FV_UP) {
                     points.push_back(RoadOption(generateVerticalLineFieldUp(x, y), D_UP));
                 }
             } else if (fieldValue == FV_INTERSECTION) {
@@ -381,4 +384,3 @@ std::vector<RoadOption> RoadGenerator::createRoads() {
     return points;
 }
 
-RoadGenerator::RoadGenerator(GridType grid) : grid(grid) {}
